@@ -13,6 +13,7 @@ use App\Repository\Car\CarRepository;
 use App\Repository\CarUser\CarUserRepository;
 use App\Repository\Services\ServicesRepository;
 use App\Repository\Helper\HelperRepository;
+use App\Repository\ServiceItem\ServiceItemRepository;
 
 class ServiceController extends Controller
 {
@@ -71,8 +72,11 @@ class ServiceController extends Controller
                                    $serviceID,
                                    CarUserRepository $carUserRepository,
                                    ServicesRepository $servicesRepository,
-                                   CarRepository $carRepository)
+                                   CarRepository $carRepository,
+                                   ServiceItemRepository $serviceItemRepository)
     {
+
+
         $carData['serviceData'] = $servicesRepository->getById($serviceID);
         $userCarData = $carUserRepository->userCarData('car', $carID);
 

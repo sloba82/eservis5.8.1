@@ -72,20 +72,20 @@ class CarRepository implements CRUDInterface
         return Car::all();
     }
 
-    public function getById($id)
+        public function getById($id)
     {
         $car = Car::find($id);
         return $car->toArray();
 
     }
 
-    public function update($params, $id)
+        public function update($params, $id)
     {
         $Car = Car::findOrFail($id);
         $Car->update($params);
     }
 
-    public function delete($id)
+        public function delete($id)
     {
         $Car = Car::find($id);
         $Car->delete();
