@@ -27,6 +27,13 @@ class ServiceItemRepository implements CRUDInterface
         return $id;
     }
 
+    public function serviceItemOfservices($serviceID) {
+
+        
+
+        return App\Service::all()->serviceItems()->where('service_id', $serviceID);
+    }
+
     public function getAll()
     {
         return ServiceItem::all();

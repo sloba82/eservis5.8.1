@@ -24,4 +24,10 @@ class Service extends Model
     {
         return $this->belongsTo('App\Car');
     }
+
+
+    public function serviceItems() {
+        return $this->hasMany('App\ServiceItem');
+    }
+
 }

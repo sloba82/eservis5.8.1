@@ -86,6 +86,7 @@ class ServicesRepository implements CRUDInterface
     }
 
 
+
     public function getAll()
     {
         return Service::all();

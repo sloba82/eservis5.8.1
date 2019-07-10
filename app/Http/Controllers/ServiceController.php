@@ -76,6 +76,9 @@ class ServiceController extends Controller
                                    ServiceItemRepository $serviceItemRepository)
     {
 
+        dd( $serviceItemRepository->serviceItemOfservices(1));
+
+        $serviceItemRepository->serviceItemOfservices(1);
 
         $carData['serviceData'] = $servicesRepository->getById($serviceID);
         $userCarData = $carUserRepository->userCarData('car', $carID);
