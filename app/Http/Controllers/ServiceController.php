@@ -76,7 +76,7 @@ class ServiceController extends Controller
                                    ServiceItemRepository $serviceItemRepository)
     {
 
-        dd( $serviceItemRepository->serviceItemOfservices(1));
+/*        dd( $serviceItemRepository->serviceItemOfservices(1));*/
 
         $serviceItemRepository->serviceItemOfservices(1);
 

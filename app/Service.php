@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\ServiceItem;
 
 class Service extends Model
 {
@@ -27,7 +28,7 @@ class Service extends Model
 
 
     public function serviceItems() {
-        return $this->hasMany('App\ServiceItem');
+        return $this->belongsToMany('App\ServiceItem','service_items' );
     }
 
 }

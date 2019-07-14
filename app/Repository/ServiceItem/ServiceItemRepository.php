@@ -2,10 +2,12 @@
 
 namespace App\Repository\ServiceItem;
 
-use App\ServiceItem;
+
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Repository\CRUDInterface;
+use App\Service;
+use App\ServiceItem;
 
 
 class ServiceItemRepository implements CRUDInterface
@@ -27,11 +29,17 @@ class ServiceItemRepository implements CRUDInterface
         return $id;
     }
 
-    public function serviceItemOfservices($serviceID) {
+    public function serviceItemOfservices($serviceID)
+    {
 
-        
+        $service = new Service();
 
-        return App\Service::all()->serviceItems()->where('service_id', $serviceID);
+        $serviceItem = $service::find($serviceID);
+
+        dd($serviceItem->serviceItems);
+
+
+        return $serviceItem->serviceItems();
     }
 
     public function getAll()
