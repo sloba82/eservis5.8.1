@@ -30,23 +30,29 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-md-8 col-lg-8">
-                        <div class="panel panel-default height">
-                            <div class="panel-heading"><i class="fas fa-list-ul"></i> Stavke servisa</div>
-                            <div class="panel-body">
-                                <label for="name">Opis servisne stavke:</label>
-                                <input name="service_item_description" type="text" class="form-control" id="name">
+                        <form id="formSaveItem"
+                              role="form"
+                              method="post"
+                              action="{{ url('/service-editcar/service-item') }}">
+                            {{ csrf_field() }}
+                            <div class="panel panel-default height">
+                                <div class="panel-heading"><i class="fas fa-list-ul"></i> Stavke servisa</div>
+                                <div class="panel-body">
+                                    <label for="name">Opis servisne stavke:</label>
+                                    <input name="service_item_description" type="text" class="form-control" id="name">
 
-                                <label for="address">Cena po komadu:</label>
-                                <input name="service_item_price" type="text" class="form-control" id="address">
+                                    <label for="address">Cena po komadu:</label>
+                                    <input name="service_item_price" type="text" class="form-control" id="address">
 
-                                <label for="city">Komada:</label>
-                                <input name="service_item_pieces" type="text" class="form-control" id="city">
+                                    <label for="city">Komada:</label>
+                                    <input name="service_item_pieces" type="text" class="form-control" id="city">
 
+                                </div>
+                                <div class="row">
+                                    <button class="btn btn-success btn-sm pull-right">Sacuvaj</button>
+                                </div>
                             </div>
-                            <div class="row">
-                                <button class="btn btn-success btn-sm pull-right">Sacuvaj</button>
-                            </div>
-                        </div>
+                        </form>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class=""><strong>Racun servisa / broj: {{$carData['serviceData']['service_name']}}</strong></h3>
@@ -73,139 +79,31 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>Samsung Galaxy S5</td>
-                                            <td class="text-center">$900</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">20%</td>
-                                            <td class="text-right"><strong>$900</strong></td>
-                                            <td class="text-right">
-                                                <span style="color: green"
-                                                      data-toggle="modal"
-                                                      data-target="#editModal"
-                                                      data-whatever="Ovde menjati tekst">
-                                                    <i class="far fa-edit"></i></span>
-                                                <strong>/</strong>
-                                                <span style="color: red"
-                                                      data-toggle="modal"
-                                                      data-target="#delateModal">
-                                                    <i class="far fa-trash-alt"></i></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Samsung Galaxy S5</td>
-                                            <td class="text-center">$900</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">20%</td>
-                                            <td class="text-right"><strong>$900</strong></td>
-                                            <td class="text-right">
-                                                <span style="color: green"
-                                                      data-toggle="modal"
-                                                      data-target="#editModal"
-                                                      data-whatever="Ovde menjati tekst">
-                                                    <i class="far fa-edit"></i></span>
-                                                <strong>/</strong>
-                                                <span style="color: red"
-                                                      data-toggle="modal"
-                                                      data-target="#delateModal">
-                                                    <i class="far fa-trash-alt"></i></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Samsung Galaxy S5</td>
-                                            <td class="text-center">$900</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">20%</td>
-                                            <td class="text-right"><strong>$900</strong></td>
-                                            <td class="text-right">
-                                                <span style="color: green"
-                                                      data-toggle="modal"
-                                                      data-target="#editModal"
-                                                      data-whatever="Ovde menjati tekst">
-                                                    <i class="far fa-edit"></i></span>
-                                                <strong>/</strong>
-                                                <span style="color: red"
-                                                      data-toggle="modal"
-                                                      data-target="#delateModal">
-                                                    <i class="far fa-trash-alt"></i></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Samsung Galaxy S5</td>
-                                            <td class="text-center">$900</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">20%</td>
-                                            <td class="text-right"><strong>$900</strong></td>
-                                            <td class="text-right">
-                                                <span style="color: green"
-                                                      data-toggle="modal"
-                                                      data-target="#editModal"
-                                                      data-whatever="Ovde menjati tekst">
-                                                    <i class="far fa-edit"></i></span>
-                                                <strong>/</strong>
-                                                <span style="color: red"
-                                                      data-toggle="modal"
-                                                      data-target="#delateModal">
-                                                    <i class="far fa-trash-alt"></i></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Samsung Galaxy S5</td>
-                                            <td class="text-center">$900</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">20%</td>
-                                            <td class="text-right"><strong>$900</strong></td>
-                                            <td class="text-right">
-                                                <span style="color: green"
-                                                      data-toggle="modal"
-                                                      data-target="#editModal"
-                                                      data-whatever="Ovde menjati tekst">
-                                                    <i class="far fa-edit"></i></span>
-                                                <strong>/</strong>
-                                                <span style="color: red"
-                                                      data-toggle="modal"
-                                                      data-target="#delateModal">
-                                                    <i class="far fa-trash-alt"></i></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Samsung Galaxy S5</td>
-                                            <td class="text-center">$900</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center">20%</td>
-                                            <td class="text-right"><strong>$900</strong></td>
-                                            <td class="text-right">
-                                                <span style="color: green"
-                                                      data-toggle="modal"
-                                                      data-target="#editModal"
-                                                      data-whatever="Ovde menjati tekst">
-                                                    <i class="far fa-edit"></i></span>
-                                                <strong>/</strong>
-                                                <span style="color: red"
-                                                      data-toggle="modal"
-                                                      data-target="#delateModal">
-                                                    <i class="far fa-trash-alt"></i></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Samsung Galaxy S5 Extra Battery</td>
-                                            <td class="text-center">$30.00</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center"><strong>20%</strong></td>
-                                            <td class="text-right"><strong>$780</strong></td>
-                                            <td class="text-right">
-                                                <span style="color: green"
-                                                      data-toggle="modal"
-                                                      data-target="#editModal"
-                                                      data-whatever="Ovde menjati tekst">
-                                                    <i class="far fa-edit"></i></span>
-                                                <strong>/</strong>
-                                                <span style="color: red"
-                                                      data-toggle="modal"
-                                                      data-target="#delateModal">
-                                                    <i class="far fa-trash-alt"></i></span>
-                                            </td>
-                                        </tr>
+                                        @if (count($carData['serviceItems']))
+                                           @foreach( $carData['serviceItems'] as $serviceItem)
+                                            <tr>
+                                                <td>{{$serviceItem['desc']}}</td>
+                                                <td class="text-center">{{$serviceItem['piece_price']}}</td>
+                                                <td class="text-center">{{$serviceItem['pieces']}}</td>
+                                                <td class="text-center">{{$serviceItem['pdv']}}</td>
+                                                <td class="text-right"><strong>{{$serviceItem['total']}}</strong></td>
+                                                <td class="text-right">
+                                                    <span style="color: green"
+                                                          data-id="{{$serviceItem['id']}}"
+                                                          data-toggle="modal"
+                                                          data-target="#editModal"
+                                                          data-whatever="Ovde menjati tekst">
+                                                        <i class="far fa-edit"></i></span>
+                                                    <strong>/</strong>
+                                                    <span style="color: red"
+                                                          data-id="{{$serviceItem['id']}}"
+                                                          data-toggle="modal"
+                                                          data-target="#delateModal">
+                                                        <i class="far fa-trash-alt"></i></span>
+                                                </td>
+                                            </tr>
+                                           @endforeach
+                                        @endif
                                         <tr>
                                             <td class="highrow"></td>
                                             <td class="highrow"></td>
@@ -228,7 +126,7 @@
                                             <td class="emptyrow"></td>
                                             <td class="emptyrow"></td>
                                             <td class="emptyrow text-right"><strong>Ukupno sa PDV</strong></td>
-                                            <td class="emptyrow text-right">$978.00</td>
+                                            <td class="emptyrow text-right">{{$carData['totalSum']}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -328,7 +226,6 @@
                                 </div>
                             </div>
                         @endif
-
                     </div>
                 </div>
             </div>
@@ -380,11 +277,6 @@
             color: #5CB85C;
         }
 
-        .iconbig {
-            font-size: 77px;
-            color: #5CB85C;
-        }
-
         .table > tbody > tr > .emptyrow {
             border-top: none;
         }
@@ -405,15 +297,19 @@
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('whatever') // Extract info from data-* attributes
 
-console.log(recipient);
-
-
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
             modal.find('.modal-title').text('New message to ' + recipient)
             modal.find('.modal-body input').val(recipient)
-        })
+        });
+
+        $("#formSaveItem").submit(function(e) {
+            e.preventDefault();
+        });
+
+
+
     </script>
 
 

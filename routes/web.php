@@ -39,6 +39,8 @@ Route::middleware(['auth', 'roles:admin,serviceman' ])->group(function () {
     Route::post('/service-search', 'ServiceController@carInServiceOrCreateNewCar');
 
     Route::get('/service-editcar/carID/{carID}/serviceID/{serviceID}', 'ServiceController@serviceEditCar');
+
+    Route::post('/service-editcar/service-item', 'ServiceController@serviceItemAdd');
 });
 
 

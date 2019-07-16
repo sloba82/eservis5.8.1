@@ -2,11 +2,9 @@
 
 namespace App\Repository\ServiceItem;
 
-
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Repository\CRUDInterface;
-use App\Service;
 use App\ServiceItem;
 
 
@@ -17,29 +15,15 @@ class ServiceItemRepository implements CRUDInterface
     {
         $id = DB::table('cars')->insertGetId([
             'service_id' => $params['service_id'],
-            'desc'       => $params['desc'],
-            'pieces'     => $params['pieces'],
-            'piece_price'=> $params['piece_price'],
-            'pdv'        => $params['pdv'],
-            'total'      => $params['total'],
+            'desc' => $params['desc'],
+            'pieces' => $params['pieces'],
+            'piece_price' => $params['piece_price'],
+            'pdv' => $params['pdv'],
+            'total' => $params['total'],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-
         return $id;
-    }
-
-    public function serviceItemOfservices($serviceID)
-    {
-
-        $service = new Service();
-
-        $serviceItem = $service::find($serviceID);
-
-        dd($serviceItem->serviceItems);
-
-
-        return $serviceItem->serviceItems();
     }
 
     public function getAll()
@@ -51,7 +35,6 @@ class ServiceItemRepository implements CRUDInterface
     {
         $ServiceItem = ServiceItem::find($id);
         return $ServiceItem->toArray();
-
     }
 
     public function update($params, $id)
@@ -64,6 +47,35 @@ class ServiceItemRepository implements CRUDInterface
     {
         $ServiceItem = ServiceItem::find($id);
         $ServiceItem->delete();
+    }
+
+    /**
+     * @param $serviceID
+     * @return
+     *      array and extra element 'totalSum'
+     *      witch needs to be deleted from array
+     *      before loop
+     */
+    public function serviceItem($serviceID)
+    {
+        $serviceItems = \App\Service::findOrFail($serviceID)->serviceItems;
+        $items = [];
+        $items['totalSum'] = 0;
+        foreach ($serviceItems  as $serviceItem) {
+            array_push(
+                $items,
+                [
+                    'id' =>$serviceItem->id,
+                    'desc' => $serviceItem->desc,
+                    'pieces' => $serviceItem->pieces,
+                    'piece_price' => $serviceItem->piece_price,
+                    'pdv' => $serviceItem->pdv,
+                    'total' => $serviceItem->total,
+                ]
+            );
+            $items['totalSum'] += $serviceItem->total;
+        }
+        return $items;
     }
 
 }
