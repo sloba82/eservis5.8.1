@@ -19,11 +19,11 @@
 
 
     <div class="container">
-        <form class="form-horizontal appointmentEdit serviceAdd"
-              role="form"
+        <form action="/service-addcar"
+              class="form-horizontal appointmentEdit serviceAdd"
+              enctype="multipart/form-data"
               method="post"
-              action="/service-addcar"
-              enctype="multipart/form-data">
+              role="form">
             {{ csrf_field() }}
             <input type="hidden" name="carID" value="{{$addCar['carID']}}">
             <input type="hidden" id="service_date" name="service_date" value="">

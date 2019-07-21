@@ -6,11 +6,6 @@
         @includeIf('Modals.delete')
         @includeIf('Modals.edit')
 
-        <div class="col-xs-12 col-md-12 col-lg-12">
-            Servis primio: {{$carData['serviceData']['service_man']}}
-            Status servisa: {{$carData['serviceData']['service_status']}}
-        </div>
-
         <div class="row">
             <div class="col-xs-12">
                 <div class="text-center">
@@ -30,22 +25,35 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-md-8 col-lg-8">
-                        <form id="formSaveItem"
-                              role="form"
-                              method="post"
-                              action="{{ url('/service-editcar/service-item') }}">
+                        <form action=""
+                              id="formSaveItem"
+                              method="POST"
+                              role="form">
                             {{ csrf_field() }}
+                            <input type="hidden" name="service_id" value="{{$carData['serviceData']['id']}}">
                             <div class="panel panel-default height">
                                 <div class="panel-heading"><i class="fas fa-list-ul"></i> Stavke servisa</div>
                                 <div class="panel-body">
                                     <label for="name">Opis servisne stavke:</label>
-                                    <input name="service_item_description" type="text" class="form-control" id="name">
+                                    <input name="desc"
+                                           type="text"
+                                           class="form-control"
+                                           autocomplete="off"
+                                           id="name">
 
                                     <label for="address">Cena po komadu:</label>
-                                    <input name="service_item_price" type="text" class="form-control" id="address">
+                                    <input name="pieces"
+                                           type="text"
+                                           class="form-control"
+                                           autocomplete="off"
+                                           id="address">
 
                                     <label for="city">Komada:</label>
-                                    <input name="service_item_pieces" type="text" class="form-control" id="city">
+                                    <input name="piece_price"
+                                           type="text"
+                                           class="form-control"
+                                           autocomplete="off"
+                                           id="city">
 
                                 </div>
                                 <div class="row">
@@ -55,7 +63,8 @@
                         </form>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class=""><strong>Racun servisa / broj: {{$carData['serviceData']['service_name']}}</strong></h3>
+                                <h3 class=""><strong>Racun servisa /
+                                        broj: {{$carData['serviceData']['service_name']}}</strong></h3>
                                 <div class="row">
                                     <p>
                                         <button class="btn btn-primary btn-outline btn-sm">PDF</button>
@@ -80,29 +89,30 @@
                                         </thead>
                                         <tbody>
                                         @if (count($carData['serviceItems']))
-                                           @foreach( $carData['serviceItems'] as $serviceItem)
-                                            <tr>
-                                                <td>{{$serviceItem['desc']}}</td>
-                                                <td class="text-center">{{$serviceItem['piece_price']}}</td>
-                                                <td class="text-center">{{$serviceItem['pieces']}}</td>
-                                                <td class="text-center">{{$serviceItem['pdv']}}</td>
-                                                <td class="text-right"><strong>{{$serviceItem['total']}}</strong></td>
-                                                <td class="text-right">
+                                            @foreach( $carData['serviceItems'] as $serviceItem)
+                                                <tr>
+                                                    <td>{{$serviceItem['desc']}}</td>
+                                                    <td class="text-center">{{$serviceItem['piece_price']}}</td>
+                                                    <td class="text-center">{{$serviceItem['pieces']}}</td>
+                                                    <td class="text-center">{{$serviceItem['pdv']}}</td>
+                                                    <td class="text-right"><strong>{{$serviceItem['total']}}</strong>
+                                                    </td>
+                                                    <td class="text-right">
                                                     <span style="color: green"
                                                           data-id="{{$serviceItem['id']}}"
                                                           data-toggle="modal"
                                                           data-target="#editModal"
                                                           data-whatever="Ovde menjati tekst">
                                                         <i class="far fa-edit"></i></span>
-                                                    <strong>/</strong>
-                                                    <span style="color: red"
-                                                          data-id="{{$serviceItem['id']}}"
-                                                          data-toggle="modal"
-                                                          data-target="#delateModal">
+                                                        <strong>/</strong>
+                                                        <span style="color: red"
+                                                              data-id="{{$serviceItem['id']}}"
+                                                              data-toggle="modal"
+                                                              data-target="#delateModal">
                                                         <i class="far fa-trash-alt"></i></span>
-                                                </td>
-                                            </tr>
-                                           @endforeach
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         @endif
                                         <tr>
                                             <td class="highrow"></td>
@@ -232,7 +242,6 @@
         </div>
     </div>
 
-
     <style>
         .btn-outline {
             background-color: transparent;
@@ -293,21 +302,53 @@
 
 
     <script>
-        $('#editModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('whatever') // Extract info from data-* attributes
+        $(document).ready(function () {
 
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            modal.find('.modal-title').text('New message to ' + recipient)
-            modal.find('.modal-body input').val(recipient)
+
+            /*----- Edit service  ------------*/
+
+
+            $('#editModal').on('show.bs.modal', function (event) {
+                let button = $(event.relatedTarget) // Button that triggered the modal
+                let recipient = button.data('whatever') // Extract info from data-* attributes
+
+                let modal = $(this)
+                modal.find('.modal-title').text('New message to ' + recipient)
+                modal.find('.modal-body input').val(recipient)
+            });
+
+            $("#formSaveItem").submit(function (e) {
+                e.preventDefault();
+                let form = $("#formSaveItem").serializeArray();
+                let values = {};
+                form.each( function(i, field) {
+                    values[field.name] = field.value;
+                });
+
+                let formData = JSON.stringify(values);
+
+                 $.ajaxSetup({
+                     headers: {
+                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                     },
+                     cache: false
+                 });
+                 $.ajax({
+                     contentType: "application/json",
+                     type: 'POST',
+                     url: '/serviceitem',
+                     data: formData,
+                     processData: false,
+                     success: function (response) {
+
+                         console.log(response);
+                     }
+                 });
+
+            });
+
+
         });
-
-        $("#formSaveItem").submit(function(e) {
-            e.preventDefault();
-        });
-
 
 
     </script>

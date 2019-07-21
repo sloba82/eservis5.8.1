@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServiceItem extends Model
 {
-    //
+
     protected $table = 'service_items';
 
     protected $fillable = [
@@ -18,8 +18,6 @@ class ServiceItem extends Model
         'pdv',
         'total'
     ];
-
-
 
 
 }

@@ -40,12 +40,15 @@ Route::middleware(['auth', 'roles:admin,serviceman' ])->group(function () {
 
     Route::get('/service-editcar/carID/{carID}/serviceID/{serviceID}', 'ServiceController@serviceEditCar');
 
-    Route::post('/service-editcar/service-item', 'ServiceController@serviceItemAdd');
+    Route::post('/serviceitem', 'ServiceController@ajaxServiceItemAdd');
 });
 
 
 Route::get('/card-reader/{data}', 'CardReaderController@getCardReader');
 Route::post('/sendCarToService', 'CardReaderController@sendCarToService');
 
+Route::get('/test', function () {
+    return view('/customer/test');
+});
 
 

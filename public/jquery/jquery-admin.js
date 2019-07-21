@@ -61,8 +61,6 @@ $(function () {
                 },
                 success: function (response) {
 
-
-                    console.log(response);
                     $( "#numberplate" ).autocomplete({
                         source: response
                     });
@@ -113,13 +111,6 @@ $(function () {
 
 
     });
-
-
-
-
-
-
-
 
 
 

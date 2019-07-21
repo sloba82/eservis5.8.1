@@ -66,12 +66,25 @@ class ServiceController extends Controller
         }
     }
 
-    public function serviceItemAdd(Request $request,
+    public function ajaxServiceItemAdd(Request $request,
                                 ServiceItemRepository $serviceItemRepository)
     {
 
-        $request->all();
-        /*$serviceItemRepository->save( $request );*/
+       $data = json_decode($request->getContent(), true);
+
+
+        dd( $data );
+
+        $serviceItemRepository->save([
+            'service_id' => $request->input('service_id'),
+            'desc' => $request->input('service_id'),
+            'pieces' => $request->input('service_id'),
+            'piece_price' => $request->input('service_id'),
+            'pdv' => 20,
+            'total' => 2323,
+        ]);
+
+
     }
 
     public function serviceEditCar($carID,
@@ -89,8 +102,6 @@ class ServiceController extends Controller
         } else {
             $carData['carData'] = $carRepository->getById( $carID );
         }
-
-        /*Not finished service it is hard coded for testing  perpesis*/
 
         $carData['serviceItems'] = $serviceItemRepository->serviceItem($serviceID);
         $carData['totalSum'] = $carData['serviceItems']['totalSum'];

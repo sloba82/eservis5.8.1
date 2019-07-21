@@ -13,12 +13,12 @@ class ServiceItemRepository implements CRUDInterface
 
     public function save($params)
     {
-        $id = DB::table('cars')->insertGetId([
+        $id = DB::table('service_items')->insertGetId([
             'service_id' => $params['service_id'],
             'desc' => $params['desc'],
             'pieces' => $params['pieces'],
             'piece_price' => $params['piece_price'],
-            'pdv' => $params['pdv'],
+            'pdv' => 20,
             'total' => $params['total'],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
