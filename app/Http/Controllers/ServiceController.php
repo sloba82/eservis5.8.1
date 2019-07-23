@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\UserRole;
@@ -66,34 +67,12 @@ class ServiceController extends Controller
         }
     }
 
-    public function ajaxServiceItemAdd(Request $request,
-                                ServiceItemRepository $serviceItemRepository)
+    public function serviceEditCar($carID, $serviceID)
     {
-
-       $data = json_decode($request->getContent(), true);
-
-
-        dd( $data );
-
-        $serviceItemRepository->save([
-            'service_id' => $request->input('service_id'),
-            'desc' => $request->input('service_id'),
-            'pieces' => $request->input('service_id'),
-            'piece_price' => $request->input('service_id'),
-            'pdv' => 20,
-            'total' => 2323,
-        ]);
-
-
-    }
-
-    public function serviceEditCar($carID,
-                                   $serviceID,
-                                   CarUserRepository $carUserRepository,
-                                   ServicesRepository $servicesRepository,
-                                   CarRepository $carRepository,
-                                   ServiceItemRepository $serviceItemRepository)
-    {
+        $servicesRepository = new ServicesRepository();
+        $carUserRepository = new CarUserRepository();
+        $carRepository = new CarRepository();
+        $serviceItemRepository = new ServiceItemRepository();
 
         $carData['serviceData'] = $servicesRepository->getById( $serviceID );
         $userCarData = $carUserRepository->userCarData( 'car', $carID );
@@ -106,7 +85,36 @@ class ServiceController extends Controller
         $carData['serviceItems'] = $serviceItemRepository->serviceItem($serviceID);
         $carData['totalSum'] = $carData['serviceItems']['totalSum'];
         unset( $carData['serviceItems']['totalSum'] );
+
+
+
         return view( '/admin/admin_service-edit', compact( 'carData' ) );
+    }
+
+
+    public function ajaxServiceItemAdd(Request $request,
+                                       ServiceItemRepository $serviceItemRepository)
+    {
+
+        $data = json_decode($request->getContent(), true);
+        $serviceItemRepository->save([
+              'service_id' => $data['service_id'],
+              'desc' => $data['desc'],
+              'pieces' => $data['pieces'],
+              'piece_price' => $data['piece_price'],
+          ]);
+
+        $carData['serviceItems'] = $serviceItemRepository->serviceItem($data['service_id']);
+        $carData['totalSum'] = $carData['serviceItems']['totalSum'];
+        unset( $carData['serviceItems']['totalSum'] );
+
+        $html = view('admin.serviceItem.table', compact('carData'))->render();
+
+dd($html);
+
+        return response()->json(compact('html'));
+
+
     }
 
 

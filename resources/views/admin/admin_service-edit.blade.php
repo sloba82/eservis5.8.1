@@ -1,245 +1,181 @@
 @extends('admin.admin_index')
 
 @section('content')
+
     <div class="container">
 
-        @includeIf('Modals.delete')
-        @includeIf('Modals.edit')
+    @includeIf('Modals.delete')
+    @includeIf('Modals.edit')
 
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="text-center">
-                    <i class="fa fa-search-plus pull-left icon"></i>
-                    <h2>Invoice for purchase #33221</h2>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center">
+                <i class="fa fa-search-plus pull-left icon"></i>
+                <h2>Invoice for purchase #33221</h2>
+            </div>
+            <hr>
+
+            <div class="row">
+
+                <div class="col-md-8">
+                    <button class="btn btn-primary btn-outline btn-sm">Small Button</button>
+                    <button class="btn btn-success btn-outline btn-sm">Small Button</button>
+                    <button class="btn btn-warning btn-outline btn-sm">Small Button</button>
+                    <button class="btn btn-default btn-outline btn-sm">Small Button</button>
                 </div>
-                <hr>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-8 col-lg-8">
+                    <form action=""
+                          id="formSaveItem"
+                          method="POST"
+                          role="form">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="service_id" value="{{$carData['serviceData']['id']}}">
+                        <input type="hidden" name="car_id" value="{{$carData['carData']['id']}}">
 
-                <div class="row">
-
-                    <div class="col-md-8">
-                        <button class="btn btn-primary btn-outline btn-sm">Small Button</button>
-                        <button class="btn btn-success btn-outline btn-sm">Small Button</button>
-                        <button class="btn btn-warning btn-outline btn-sm">Small Button</button>
-                        <button class="btn btn-default btn-outline btn-sm">Small Button</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-md-8 col-lg-8">
-                        <form action=""
-                              id="formSaveItem"
-                              method="POST"
-                              role="form">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="service_id" value="{{$carData['serviceData']['id']}}">
-                            <div class="panel panel-default height">
-                                <div class="panel-heading"><i class="fas fa-list-ul"></i> Stavke servisa</div>
-                                <div class="panel-body">
-                                    <label for="name">Opis servisne stavke:</label>
-                                    <input name="desc"
-                                           type="text"
-                                           class="form-control"
-                                           autocomplete="off"
-                                           id="name">
-
-                                    <label for="address">Cena po komadu:</label>
-                                    <input name="pieces"
-                                           type="text"
-                                           class="form-control"
-                                           autocomplete="off"
-                                           id="address">
-
-                                    <label for="city">Komada:</label>
-                                    <input name="piece_price"
-                                           type="text"
-                                           class="form-control"
-                                           autocomplete="off"
-                                           id="city">
-
-                                </div>
-                                <div class="row">
-                                    <button class="btn btn-success btn-sm pull-right">Sacuvaj</button>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class=""><strong>Racun servisa /
-                                        broj: {{$carData['serviceData']['service_name']}}</strong></h3>
-                                <div class="row">
-                                    <p>
-                                        <button class="btn btn-primary btn-outline btn-sm">PDF</button>
-                                        <button class="btn btn-success btn-outline btn-sm">Posalji na email</button>
-                                        <button class="btn btn-warning btn-outline btn-sm">Small Button</button>
-                                        <button class="btn btn-default btn-outline btn-sm">Small Button</button>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed">
-                                        <thead>
-                                        <tr>
-                                            <td><strong>Opis</strong></td>
-                                            <td class="text-center"><strong>Cena kom.</strong></td>
-                                            <td class="text-center"><strong>Komada</strong></td>
-                                            <td class="text-center"><strong>PDV</strong></td>
-                                            <td class="text-right"><strong>Ukupno</strong></td>
-                                            <td class="text-right"><strong>Edit</strong></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @if (count($carData['serviceItems']))
-                                            @foreach( $carData['serviceItems'] as $serviceItem)
-                                                <tr>
-                                                    <td>{{$serviceItem['desc']}}</td>
-                                                    <td class="text-center">{{$serviceItem['piece_price']}}</td>
-                                                    <td class="text-center">{{$serviceItem['pieces']}}</td>
-                                                    <td class="text-center">{{$serviceItem['pdv']}}</td>
-                                                    <td class="text-right"><strong>{{$serviceItem['total']}}</strong>
-                                                    </td>
-                                                    <td class="text-right">
-                                                    <span style="color: green"
-                                                          data-id="{{$serviceItem['id']}}"
-                                                          data-toggle="modal"
-                                                          data-target="#editModal"
-                                                          data-whatever="Ovde menjati tekst">
-                                                        <i class="far fa-edit"></i></span>
-                                                        <strong>/</strong>
-                                                        <span style="color: red"
-                                                              data-id="{{$serviceItem['id']}}"
-                                                              data-toggle="modal"
-                                                              data-target="#delateModal">
-                                                        <i class="far fa-trash-alt"></i></span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
-                                        <tr>
-                                            <td class="highrow"></td>
-                                            <td class="highrow"></td>
-                                            <td class="highrow"></td>
-                                            <td class="highrow"></td>
-                                            <td class="highrow text-right"><strong>Osnovica</strong></td>
-                                            <td class="highrow text-right">$958.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="emptyrow"></td>
-                                            <td class="emptyrow"></td>
-                                            <td class="emptyrow"></td>
-                                            <td class="emptyrow"></td>
-                                            <td class="emptyrow text-right"><strong>PDV</strong></td>
-                                            <td class="emptyrow text-right">$20</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="emptyrow"></td>
-                                            <td class="emptyrow"></td>
-                                            <td class="emptyrow"></td>
-                                            <td class="emptyrow"></td>
-                                            <td class="emptyrow text-right"><strong>Ukupno sa PDV</strong></td>
-                                            <td class="emptyrow text-right">{{$carData['totalSum']}}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-4 col-lg-4">
                         <div class="panel panel-default height">
-                            <div class="panel-heading"><i class="fas fa-wrench"></i> Servisni Podaci</div>
+                            <div class="panel-heading"><i class="fas fa-list-ul"></i> Stavke servisa</div>
                             <div class="panel-body">
-                                <label for="">Status servisa:</label>
-                                {{$carData['serviceData']['service_status']}}
-                                <label for="">Servis primio:</label>
-                                {{$carData['serviceData']['service_man']}}
-                                <label for="kilometer">Kilometri na servisu:</label>
-                                <input name="kilometer"
-                                       type="number"
+                                <label for="desc">Opis servisne stavke:</label>
+                                <input name="desc"
+                                       type="text"
                                        class="form-control"
-                                       value="{{$carData['serviceData']['kilometer']}}"
-                                       id="kilometer" disabled>
+                                       autocomplete="off"
+                                       id="desc">
+                                <label for="piece_price">Cena po komadu:</label>
+                                <input name="piece_price"
+                                       type="text"
+                                       class="form-control"
+                                       autocomplete="off"
+                                       id="piece_price">
 
-
-                                <label for="description">Opis kvara:</label>
-                                <textarea
-                                        rows="2"
-                                        name="description"
-                                        class="form-control"
-                                        id="description"
-                                        disabled>{{$carData['serviceData']['description']}}
-                                 </textarea>
+                                <label for="pieces">Komada:</label>
+                                <input name="pieces"
+                                       type="text"
+                                       class="form-control"
+                                       autocomplete="off"
+                                       id="pieces">
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-success btn-sm pull-right">Sacuvaj</button>
                             </div>
                         </div>
-                        @if (isset($carData['carData']['numberplate']))
-                            <div class="panel panel-default height">
-                                <div class="panel-heading"><i class="fas fa-car"></i> Informacije o vozilu</div>
-                                <div class="panel-body">
-                                    <label for="numberplate">Broj tablica:</label>
-                                    <input name="numberplate" type="text" class="form-control" id="numberplate"
-                                           value="{{$carData['carData']['numberplate']}}" disabled>
-
-                                    <label for="make">Marka vozila:</label>
-                                    <input name="make" type="text" class="form-control" id="make"
-                                           value="{{$carData['carData']['make']}}"
-                                           disabled>
-
-                                    <label for="model">Model vozila:</label>
-                                    <input name="model" type="text" class="form-control" id="model"
-                                           value="{{$carData['carData']['model']}}"
-                                           disabled>
-
-                                    <label for="engine">Motor:</label>
-                                    <input name="engine" type="text" class="form-control" id="engine"
-                                           value="{{$carData['carData']['engine']}}"
-                                           disabled>
-
-                                    <label for="year">Godina:</label>
-                                    <input name="year" type="text" class="form-control" id="year"
-                                           value="{{$carData['carData']['year']}}"
-                                           disabled>
-
-                                    <label for="mileage">Kilometri:</label>
-                                    <input name="mileage" type="text" class="form-control" id="mileage"
-                                           value="{{$carData['carData']['mileage']}}" disabled>
-                                </div>
+                    </form>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class=""><strong>Racun servisa /
+                                    broj: {{$carData['serviceData']['service_name']}}</strong></h3>
+                            <div class="row">
+                                <p>
+                                    <button class="btn btn-primary btn-outline btn-sm">PDF</button>
+                                    <button class="btn btn-success btn-outline btn-sm">Posalji na email</button>
+                                    <button class="btn btn-warning btn-outline btn-sm">Small Button</button>
+                                    <button class="btn btn-default btn-outline btn-sm">Small Button</button>
+                                </p>
                             </div>
-                        @endif
-                        @if (isset($carData['carData']['name']))
-                            <div class="panel panel-default height">
-                                <div class="panel-heading"><i class="fas fa-user-tie"></i> Informacije o vlasniku vozila
-                                </div>
-                                <div class="panel-body">
-                                    <label for="name">Ime i prezime:</label>
-                                    <input name="name" type="text" class="form-control" id="name"
-                                           value="{{$carData['carData']['name']}} {{$carData['carData']['last_name']}}"
-                                           disabled>
-
-                                    <label for="address">Adresa:</label>
-                                    <input name="address" type="text" class="form-control" id="address"
-                                           value="{{$carData['carData']['address']}}"
-                                           disabled>
-
-                                    <label for="city">Grad:</label>
-                                    <input name="city" type="text" class="form-control" id="city"
-                                           value="{{$carData['carData']['city']}}"
-                                           disabled>
-
-                                    <label for="phone">Kontakt tel.</label>
-                                    <input name="phone" type="text" class="form-control" id="phone"
-                                           value="{{$carData['carData']['phone']}}"
-                                           disabled>
-
-                                    <label for="year">Vlasnik registrovan u aplikaciju:</label>
-                                    <input name="year" type="text" class="form-control" id="year"
-                                           value="{{$carData['carData']['created_at']}}"
-                                           disabled>
-                                </div>
-                            </div>
-                        @endif
+                        </div>
+                        <div id="table">
+                            @includeIf('admin.serviceItem.table')
+                        </div>
                     </div>
+                </div>
+                <div class="col-xs-12 col-md-4 col-lg-4">
+                    <div class="panel panel-default height">
+                        <div class="panel-heading"><i class="fas fa-wrench"></i> Servisni Podaci</div>
+                        <div class="panel-body">
+                            <label for="">Status servisa:</label>
+                            {{$carData['serviceData']['service_status']}}
+                            <label for="">Servis primio:</label>
+                            {{$carData['serviceData']['service_man']}}
+                            <label for="kilometer">Kilometri na servisu:</label>
+                            <input name="kilometer"
+                                   type="number"
+                                   class="form-control"
+                                   value="{{$carData['serviceData']['kilometer']}}"
+                                   id="kilometer" disabled>
+
+
+                            <label for="description">Opis kvara:</label>
+                            <textarea
+                                    rows="2"
+                                    name="description"
+                                    class="form-control"
+                                    id="description"
+                                    disabled>{{$carData['serviceData']['description']}}
+                                 </textarea>
+                        </div>
+                    </div>
+                    @if (isset($carData['carData']['numberplate']))
+                        <div class="panel panel-default height">
+                            <div class="panel-heading"><i class="fas fa-car"></i> Informacije o vozilu</div>
+                            <div class="panel-body">
+                                <label for="numberplate">Broj tablica:</label>
+                                <input name="numberplate" type="text" class="form-control" id="numberplate"
+                                       value="{{$carData['carData']['numberplate']}}" disabled>
+
+                                <label for="make">Marka vozila:</label>
+                                <input name="make" type="text" class="form-control" id="make"
+                                       value="{{$carData['carData']['make']}}"
+                                       disabled>
+
+                                <label for="model">Model vozila:</label>
+                                <input name="model" type="text" class="form-control" id="model"
+                                       value="{{$carData['carData']['model']}}"
+                                       disabled>
+
+                                <label for="engine">Motor:</label>
+                                <input name="engine" type="text" class="form-control" id="engine"
+                                       value="{{$carData['carData']['engine']}}"
+                                       disabled>
+
+                                <label for="year">Godina:</label>
+                                <input name="year" type="text" class="form-control" id="year"
+                                       value="{{$carData['carData']['year']}}"
+                                       disabled>
+
+                                <label for="mileage">Kilometri:</label>
+                                <input name="mileage" type="text" class="form-control" id="mileage"
+                                       value="{{$carData['carData']['mileage']}}" disabled>
+                            </div>
+                        </div>
+                    @endif
+                    @if (isset($carData['carData']['name']))
+                        <div class="panel panel-default height">
+                            <div class="panel-heading"><i class="fas fa-user-tie"></i> Informacije o vlasniku vozila
+                            </div>
+                            <div class="panel-body">
+                                <label for="name">Ime i prezime:</label>
+                                <input name="name" type="text" class="form-control" id="name"
+                                       value="{{$carData['carData']['name']}} {{$carData['carData']['last_name']}}"
+                                       disabled>
+
+                                <label for="address">Adresa:</label>
+                                <input name="address" type="text" class="form-control" id="address"
+                                       value="{{$carData['carData']['address']}}"
+                                       disabled>
+
+                                <label for="city">Grad:</label>
+                                <input name="city" type="text" class="form-control" id="city"
+                                       value="{{$carData['carData']['city']}}"
+                                       disabled>
+
+                                <label for="phone">Kontakt tel.</label>
+                                <input name="phone" type="text" class="form-control" id="phone"
+                                       value="{{$carData['carData']['phone']}}"
+                                       disabled>
+
+                                <label for="year">Vlasnik registrovan u aplikaciju:</label>
+                                <input name="year" type="text" class="form-control" id="year"
+                                       value="{{$carData['carData']['created_at']}}"
+                                       disabled>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <style>
@@ -321,29 +257,28 @@
                 e.preventDefault();
                 let form = $("#formSaveItem").serializeArray();
                 let values = {};
-                form.each( function(i, field) {
+                $.each( form, function(i, field) {
                     values[field.name] = field.value;
                 });
 
                 let formData = JSON.stringify(values);
 
-                 $.ajaxSetup({
-                     headers: {
-                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                     },
-                     cache: false
-                 });
-                 $.ajax({
-                     contentType: "application/json",
-                     type: 'POST',
-                     url: '/serviceitem',
-                     data: formData,
-                     processData: false,
-                     success: function (response) {
-
-                         console.log(response);
-                     }
-                 });
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    cache: false
+                });
+                $.ajax({
+                    contentType: "application/json",
+                    type: 'POST',
+                    url: '/serviceitem',
+                    data: formData,
+                    processData: false,
+                    success: function (response) {
+console.log(response);
+                    }
+                });
 
             });
 
