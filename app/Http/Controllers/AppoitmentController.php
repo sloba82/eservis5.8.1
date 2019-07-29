@@ -104,13 +104,11 @@ class AppoitmentController extends Controller
             $dateAndTime .= ':00';
             $request['appoitment'] = $dateAndTime;
         }
-
         $request['confirm'] = intval($request['confirm']);
         $appointmentRepository->update($request->all(), $id);
 
         return redirect('/appointment');
 
-        /* return $this->index();*/
     }
 
     /**

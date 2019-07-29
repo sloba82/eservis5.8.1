@@ -33,6 +33,7 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="service_id" value="{{$carData['serviceData']['id']}}">
                         <input type="hidden" name="car_id" value="{{$carData['carData']['id']}}">
+                        <input type="hidden" name="action" value="save">
 
                         <div class="panel panel-default height">
                             <div class="panel-heading"><i class="fas fa-list-ul"></i> Stavke servisa</div>
@@ -45,14 +46,14 @@
                                        id="desc">
                                 <label for="piece_price">Cena po komadu:</label>
                                 <input name="piece_price"
-                                       type="text"
+                                       type="number"
                                        class="form-control"
                                        autocomplete="off"
                                        id="piece_price">
 
                                 <label for="pieces">Komada:</label>
                                 <input name="pieces"
-                                       type="text"
+                                       type="number"
                                        class="form-control"
                                        autocomplete="off"
                                        id="pieces">
@@ -249,19 +250,33 @@
                 let recipient = button.data('whatever') // Extract info from data-* attributes
 
                 let modal = $(this)
-                modal.find('.modal-title').text('New message to ' + recipient)
+                modal.find('.modal-title').text(recipient)
                 modal.find('.modal-body input').val(recipient)
             });
 
-            $("#formSaveItem").submit(function (e) {
+            $('#delateModal').on('show.bs.modal', function (event) {
+                let button = $(event.relatedTarget) // Button that triggered the modal
+                let recipient = button.data('whatever') // Extract info from data-* attributes
+
+                let modal = $(this)
+                modal.find('.modal-title').text(button.data('title'))
+                modal.find('.modal-desc').text(button.data('desc'))
+                modal.find('.modal-body input[name=serviceItem_id]').val(button.data('id'))
+            });
+
+            $("#formSaveItem, #deleteItem").submit(function (e) {
+
+
                 e.preventDefault();
-                let form = $("#formSaveItem").serializeArray();
+
+                let form = $("#" + $(this).find('form').context.id).serializeArray();
                 let values = {};
                 $.each( form, function(i, field) {
                     values[field.name] = field.value;
                 });
-
                 let formData = JSON.stringify(values);
+
+
 
                 $.ajaxSetup({
                     headers: {
@@ -276,11 +291,17 @@
                     data: formData,
                     processData: false,
                     success: function (response) {
-console.log(response);
+                        $('#table').html(response.html);
+                        $("#formSaveItem").trigger("reset");
                     }
                 });
 
             });
+
+
+            function submit() {
+
+            }
 
 
         });

@@ -6,17 +6,25 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="delateLabel">Modal title</h5>
+                <h4 class="modal-title" id="delateLabel">Modal title</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
-                ...
+                <p class="modal-desc"></p>
+            <form action=""
+                  id="deleteItem"
+                  method="POST"
+                  role="form">
+                {{ csrf_field() }}
+                <input type="hidden" name="serviceItem_id">
+            </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkazi</button>
+                <button type="button" class="btn btn-primary"><i class="far fa-trash-alt"></i> Obrisi</button>
             </div>
         </div>
     </div>

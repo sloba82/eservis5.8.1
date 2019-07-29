@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\UserRole;
@@ -96,13 +95,22 @@ class ServiceController extends Controller
                                        ServiceItemRepository $serviceItemRepository)
     {
 
+
         $data = json_decode($request->getContent(), true);
-        $serviceItemRepository->save([
-              'service_id' => $data['service_id'],
-              'desc' => $data['desc'],
-              'pieces' => $data['pieces'],
-              'piece_price' => $data['piece_price'],
-          ]);
+
+        if ($data['action'] == 'save') {
+            $serviceItemRepository->save([
+                'service_id' => $data['service_id'],
+                'desc' => $data['desc'],
+                'pieces' => $data['pieces'],
+                'piece_price' => $data['piece_price'],
+            ]);
+        }
+
+        if ($data['action']== 'delete'){
+            $serviceItemRepository->delete($data['serviceItem_id']);
+        }
+
 
         $carData['serviceItems'] = $serviceItemRepository->serviceItem($data['service_id']);
         $carData['totalSum'] = $carData['serviceItems']['totalSum'];
@@ -110,11 +118,24 @@ class ServiceController extends Controller
 
         $html = view('admin.serviceItem.table', compact('carData'))->render();
 
-dd($html);
-
         return response()->json(compact('html'));
 
+    }
 
+   public function ajaxajaxServiceItemDelate (Request $request,
+                                               ServiceItemRepository $serviceItemRepository)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $serviceItemRepository->delete($data['serviceItem_id']);
+
+        $carData['serviceItems'] = $serviceItemRepository->serviceItem($data['service_id']);
+        $carData['totalSum'] = $carData['serviceItems']['totalSum'];
+        unset( $carData['serviceItems']['totalSum'] );
+
+        $html = view('admin.serviceItem.table', compact('carData'))->render();
+
+        return response()->json(compact('html'));
     }
 
 

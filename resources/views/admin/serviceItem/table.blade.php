@@ -22,18 +22,21 @@
                     <td class="text-right"><strong>{{$serviceItem['total']}}</strong>
                     </td>
                     <td class="text-right">
-                                                    <span style="color: green"
-                                                          data-id="{{$serviceItem['id']}}"
-                                                          data-toggle="modal"
-                                                          data-target="#editModal"
-                                                          data-whatever="Ovde menjati tekst">
-                                                        <i class="far fa-edit"></i></span>
+                        <span style="color: green"
+                              data-id="{{$serviceItem['id']}}"
+                              data-toggle="modal"
+                              data-target="#editModal"
+                              data-whatever="Ovde menjati tekst">
+                         <i class="far fa-edit"></i></span>
                         <strong>/</strong>
                         <span style="color: red"
                               data-id="{{$serviceItem['id']}}"
                               data-toggle="modal"
-                              data-target="#delateModal">
-                                                        <i class="far fa-trash-alt"></i></span>
+                              data-target="#delateModal"
+                              data-whatever="{{$serviceItem['id']}}"
+                              data-title="Paznja brisanje stavke!"
+                              data-desc="{{$serviceItem['desc']}}">
+                        <i class="far fa-trash-alt"></i></span>
                     </td>
                 </tr>
             @endforeach
