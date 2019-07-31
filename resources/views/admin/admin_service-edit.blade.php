@@ -59,7 +59,7 @@
                                        id="pieces">
                             </div>
                             <div class="row">
-                                <button class="btn btn-success btn-sm pull-right">Sacuvaj</button>
+                                <button type="submit" class="btn btn-success btn-sm pull-right">Sacuvaj</button>
                             </div>
                         </div>
                     </form>
@@ -239,7 +239,7 @@
 
 
     <script>
-        $(document).ready(function () {
+    $(function () {
 
 
             /*----- Edit service  ------------*/
@@ -264,44 +264,37 @@
                 modal.find('.modal-body input[name=serviceItem_id]').val(button.data('id'));
             });
 
-            $("#formSaveItem, #deleteItem").submit(function (e) {
-                e.preventDefault();
+       $("#formSaveItem, #deleteItem").on('submit', function (e) {
+            e.preventDefault();
 
-                let form = $("#" + $(this).find('form').context.id).serializeArray();
-                let values = {};
-                $.each( form, function(i, field) {
-                    values[field.name] = field.value;
-                });
-                let formData = JSON.stringify(values);
+            let form = $("#" + $(this).find('form').context.id).serializeArray();
+            let values = {};
+            $.each( form, function(i, field) {
+                values[field.name] = field.value;
+            });
+            let formData = JSON.stringify(values);
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    cache: false
-                });
-                $.ajax({
-                    contentType: "application/json",
-                    type: 'POST',
-                    url: '/serviceitem',
-                    data: formData,
-                    processData: false,
-                    success: function (response) {
-                        $('#table').html(response.html);
-                        $("#formSaveItem").trigger("reset");
-                    }
-                });
-
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                cache: false
+            });
+            $.ajax({
+                contentType: "application/json",
+                type: 'POST',
+                url: '/serviceitem',
+                data: formData,
+                processData: false,
+                success: function (response) {
+                    $('#table').html(response.html);
+                    $("#formSaveItem").trigger("reset");
+                }
             });
 
-
-
-
-
-
-
-
         });
+
+    });
     </script>
 
 

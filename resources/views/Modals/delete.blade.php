@@ -19,13 +19,18 @@
                   method="POST"
                   role="form">
                 {{ csrf_field() }}
+                <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="serviceItem_id">
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkazi</button>
+                    <button type="submit" class="btn btn-primary"><i class="far fa-trash-alt"></i> Obrisi</button>
+                </div>
             </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkazi</button>
-                <button type="button" class="btn btn-primary"><i class="far fa-trash-alt"></i> Obrisi</button>
-            </div>
+
         </div>
     </div>
 </div>
