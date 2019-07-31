@@ -246,27 +246,25 @@
 
 
             $('#editModal').on('show.bs.modal', function (event) {
-                let button = $(event.relatedTarget) // Button that triggered the modal
-                let recipient = button.data('whatever') // Extract info from data-* attributes
+                let button = $(event.relatedTarget); // Button that triggered the modal
+                let recipient = button.data('whatever'); // Extract info from data-* attributes
 
-                let modal = $(this)
-                modal.find('.modal-title').text(recipient)
+                let modal = $(this);
+                modal.find('.modal-title').text(recipient);
                 modal.find('.modal-body input').val(recipient)
             });
 
             $('#delateModal').on('show.bs.modal', function (event) {
-                let button = $(event.relatedTarget) // Button that triggered the modal
-                let recipient = button.data('whatever') // Extract info from data-* attributes
+                let button = $(event.relatedTarget); // Button that triggered the modal
+                let recipient = button.data('whatever'); // Extract info from data-* attributes
 
-                let modal = $(this)
-                modal.find('.modal-title').text(button.data('title'))
-                modal.find('.modal-desc').text(button.data('desc'))
-                modal.find('.modal-body input[name=serviceItem_id]').val(button.data('id'))
+                let modal = $(this);
+                modal.find('.modal-title').text(button.data('title'));
+                modal.find('.modal-desc').text(button.data('desc'));
+                modal.find('.modal-body input[name=serviceItem_id]').val(button.data('id'));
             });
 
             $("#formSaveItem, #deleteItem").submit(function (e) {
-
-
                 e.preventDefault();
 
                 let form = $("#" + $(this).find('form').context.id).serializeArray();
@@ -275,8 +273,6 @@
                     values[field.name] = field.value;
                 });
                 let formData = JSON.stringify(values);
-
-
 
                 $.ajaxSetup({
                     headers: {
@@ -299,14 +295,13 @@
             });
 
 
-            function submit() {
 
-            }
+
+
+
 
 
         });
-
-
     </script>
 
 
