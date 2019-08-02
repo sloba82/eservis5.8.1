@@ -21,12 +21,10 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="serviceItem_id">
-
-
-
+                <input type="hidden" name="service_id" value="{{$carData['serviceData']['id']}}">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkazi</button>
-                    <button type="submit" class="btn btn-primary"><i class="far fa-trash-alt"></i> Obrisi</button>
+                    <button type="submit" class="btn btn-primary" data-dismiss=""><i class="far fa-trash-alt"></i> Obrisi</button>
                 </div>
             </form>
             </div>

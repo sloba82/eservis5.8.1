@@ -267,7 +267,8 @@
        $("#formSaveItem, #deleteItem").on('submit', function (e) {
             e.preventDefault();
 
-            let form = $("#" + $(this).find('form').context.id).serializeArray();
+            let formID = $(this).find('form').context.id;
+            let form = $("#" + formID).serializeArray();
             let values = {};
             $.each( form, function(i, field) {
                 values[field.name] = field.value;
@@ -289,6 +290,7 @@
                 success: function (response) {
                     $('#table').html(response.html);
                     $("#formSaveItem").trigger("reset");
+                    
                 }
             });
 

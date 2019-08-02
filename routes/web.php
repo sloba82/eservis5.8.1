@@ -40,7 +40,7 @@ Route::middleware(['auth', 'roles:admin,serviceman' ])->group(function () {
 
     Route::get('/service-editcar/carID/{carID}/serviceID/{serviceID}', 'ServiceController@serviceEditCar');
 
-    Route::post('/serviceitem', 'ServiceController@ajaxServiceItemAdd');
+    Route::post('/serviceitem', 'ServiceController@ajaxServiceItem');
 });
 
 

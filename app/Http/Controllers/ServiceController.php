@@ -91,13 +91,10 @@ class ServiceController extends Controller
     }
 
 
-    public function ajaxServiceItemAdd(Request $request,
+    public function ajaxServiceItem(Request $request,
                                        ServiceItemRepository $serviceItemRepository)
     {
-
-
         $data = json_decode($request->getContent(), true);
-
         if ($data['action'] == 'save') {
             $serviceItemRepository->save([
                 'service_id' => $data['service_id'],
@@ -111,30 +108,11 @@ class ServiceController extends Controller
             $serviceItemRepository->delete($data['serviceItem_id']);
         }
 
-
         $carData['serviceItems'] = $serviceItemRepository->serviceItem($data['service_id']);
         $carData['totalSum'] = $carData['serviceItems']['totalSum'];
         unset( $carData['serviceItems']['totalSum'] );
 
         $html = view('admin.serviceItem.table', compact('carData'))->render();
-
-        return response()->json(compact('html'));
-
-    }
-
-   public function ajaxajaxServiceItemDelate (Request $request,
-                                               ServiceItemRepository $serviceItemRepository)
-    {
-        $data = json_decode($request->getContent(), true);
-
-        $serviceItemRepository->delete($data['serviceItem_id']);
-
-        $carData['serviceItems'] = $serviceItemRepository->serviceItem($data['service_id']);
-        $carData['totalSum'] = $carData['serviceItems']['totalSum'];
-        unset( $carData['serviceItems']['totalSum'] );
-
-        $html = view('admin.serviceItem.table', compact('carData'))->render();
-
         return response()->json(compact('html'));
     }
 
