@@ -85,8 +85,6 @@ class ServiceController extends Controller
         $carData['totalSum'] = $carData['serviceItems']['totalSum'];
         unset( $carData['serviceItems']['totalSum'] );
 
-
-
         return view( '/admin/admin_service-edit', compact( 'carData' ) );
     }
 
@@ -107,7 +105,7 @@ class ServiceController extends Controller
         if ($data['action']== 'delete'){
             $serviceItemRepository->delete($data['serviceItem_id']);
         }
-
+        
         $carData['serviceItems'] = $serviceItemRepository->serviceItem($data['service_id']);
         $carData['totalSum'] = $carData['serviceItems']['totalSum'];
         unset( $carData['serviceItems']['totalSum'] );
