@@ -4,12 +4,15 @@ namespace App\Repository\Appointment;
 
 use App\Appoitment;
 use App\Repository\CRUDInterface;
-
+use App\Repository\AppCache\AppCacheRepository;
 
 
 class AppointmentRepository implements CRUDInterface
 {
 
+    /**
+     * @param $params
+     */
     public function save($params) {
 
         $Appopitment = new Appoitment([
@@ -26,6 +29,25 @@ class AppointmentRepository implements CRUDInterface
             'confirm' => 0
         ]);
         $Appopitment->save();
+
+        /**
+         * After save delete previous cache and create new
+         *
+         */
+        $this->delateCreateCache();
+
+    }
+
+    private function delateCreateCache(){
+        if (AppCacheRepository::checkCache('allAppointments')) {
+            AppCacheRepository::deleteCache('allAppointments');
+        }
+        AppCacheRepository::storeCache(
+            [
+                'key' => 'allAppointments',
+                'value' => $this->getAll(),
+            ]
+        );
     }
 
     public function getAll(){
@@ -39,11 +61,21 @@ class AppointmentRepository implements CRUDInterface
     public function update($params, $id){
         $Appopitment = Appoitment::findOrFail($id);
         $Appopitment->update($params);
+        /**
+         * After update delete previous cache and create new
+         *
+         */
+        $this->delateCreateCache();
     }
 
     public function delete($id){
         $Appopitment = Appoitment::find($id);
         $Appopitment->delete();
+        /**
+         * After delete, delete previous cache and create new
+         *
+         */
+        $this->delateCreateCache();
 
     }
 

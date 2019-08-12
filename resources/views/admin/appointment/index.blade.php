@@ -54,7 +54,7 @@
                 </tbody>
             </table>
         </div>
-        {{ $allapointments->links() }}
+
     </div>
 
 @endsection

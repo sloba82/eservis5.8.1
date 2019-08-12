@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Appoitment;
+use App\Repository\AppCache\AppCacheRepository;
 use App\Repository\Appointment\AppointmentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
+
 
 class AppoitmentController extends Controller
 {
@@ -17,13 +19,15 @@ class AppoitmentController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(AppointmentRepository $appointmentRepository)
     {
-        $paginate = 10;
-        $allapointments = DB::table('appoitments')
-            ->orderByRaw('id DESC')
-            ->where('active', 1)
-            ->paginate($paginate);
+        $allapointments ='';
+        if (AppCacheRepository::checkCache('allAppointments')) {
+            $allapointments = AppCacheRepository::getCache('allAppointments');
+        }
+        else{
+            $allapointments = $appointmentRepository->getAll();
+        }
 
         return view('admin.appointment.index', compact('allapointments'));
     }

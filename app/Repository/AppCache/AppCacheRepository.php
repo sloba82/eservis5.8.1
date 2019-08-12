@@ -31,6 +31,17 @@ class AppCacheRepository
         Cache::put($params['key'], $params['value']);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     *
+     id = 'nameOfCache',
+     use App\Repository\AppCache\AppCacheRepository;
+     AppCacheRepository::checkCache($id);
+     * check if cache exists.
+     *
+     */
+
     static function checkCache($id){
         return Cache::has($id);
     }
@@ -41,7 +52,7 @@ class AppCacheRepository
      *
      id = 'nameOfCache',
      use App\Repository\AppCache\AppCacheRepository;
-     AppCacheRepository::savecache($cache);
+     AppCacheRepository::getCache($cache);
      *
      */
     static function getCache($id){

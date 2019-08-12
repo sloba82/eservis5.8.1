@@ -12,7 +12,7 @@ class AppointmentSeeder extends Seeder
     public function run()
     {
         //
-        for ($x = 0; $x <= 9; $x++) {
+        for ($x = 0; $x <= 10000; $x++) {
             DB::table('appoitments')->insert([
 
                 'user_id' =>1,
