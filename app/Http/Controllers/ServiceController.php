@@ -14,6 +14,21 @@ use App\Repository\ServiceItem\ServiceItemRepository;
 class ServiceController extends Controller
 {
 
+    private $servicesRepo;
+    private $carUserRepo;
+    private $carRepo;
+    private $serviceItemRepo;
+
+    public function __construct()
+    {
+        $this->servicesRepo = new ServicesRepository();
+        $this->carUserRepo = new CarUserRepository();
+        $this->carRepo = new CarRepository();
+
+        /* nemoze ovako sa pravi objekat sato sto  se nemo dobiti promene da save i delete */
+        $this->serviceItemRepo = new ServiceItemRepository();
+    }
+
 
     public function index()
     {
@@ -37,12 +52,10 @@ class ServiceController extends Controller
 
     public function carInServiceOrCreateNewCar(Request $request)
     {
-        $servicesRepository = new ServicesRepository();
-        return $servicesRepository->carInServiceOrCreateNewCar( $request );
+        return $this->servicesRepo->carInServiceOrCreateNewCar( $request );
     }
 
     public function serviceCarAdd(Request $request,
-                                  ServicesRepository $servicesRepository,
                                   HelperRepository $helperRepository)
     {
         $user = $request->user();
@@ -51,7 +64,7 @@ class ServiceController extends Controller
         $request['service_man'] = $user->name . ' ' . $user->last_name;
         $carID = $request['carID'];
         $request['service_date'] = $helperRepository->timeFormat( $request['service_date'] );
-        $serviceID = $servicesRepository->save( $request );
+        $serviceID = $this->servicesRepo->save( $request );
 
         if ($carID) {
             $role = UserRole::find( $user->role );
@@ -68,51 +81,69 @@ class ServiceController extends Controller
 
     public function serviceEditCar($carID, $serviceID)
     {
-        $servicesRepository = new ServicesRepository();
-        $carUserRepository = new CarUserRepository();
-        $carRepository = new CarRepository();
-        $serviceItemRepository = new ServiceItemRepository();
-
-        $carData['serviceData'] = $servicesRepository->getById( $serviceID );
-        $userCarData = $carUserRepository->userCarData( 'car', $carID );
+        $carData['serviceData'] = $this->servicesRepo->getById( $serviceID );
+        $userCarData = $this->carUserRepo->userCarData( 'car', $carID );
         if ($userCarData) {
             $carData['carData'] = get_object_vars( $userCarData );
         } else {
-            $carData['carData'] = $carRepository->getById( $carID );
+            $carData['carData'] = $this->carRepo->getById( $carID );
         }
-
-        $carData['serviceItems'] = $serviceItemRepository->serviceItem($serviceID);
+        $carData['serviceItems'] = $this->serviceItemRepo->serviceItem( $serviceID );
         $carData['totalSum'] = $carData['serviceItems']['totalSum'];
         unset( $carData['serviceItems']['totalSum'] );
 
         return view( '/admin/admin_service-edit', compact( 'carData' ) );
     }
 
+    public function ajaxServiceItem(Request $request){
 
-    public function ajaxServiceItem(Request $request,
-                                       ServiceItemRepository $serviceItemRepository)
-    {
         $data = json_decode($request->getContent(), true);
-        if ($data['action'] == 'save') {
-            $serviceItemRepository->save([
-                'service_id' => $data['service_id'],
-                'desc' => $data['desc'],
-                'pieces' => $data['pieces'],
-                'piece_price' => $data['piece_price'],
-            ]);
+        if ($data['action'] == 'save' ){
+            return $this->saveServiceItem($data);
         }
 
-        if ($data['action']== 'delete'){
-            $serviceItemRepository->delete($data['serviceItem_id']);
+        if($data['action'] == 'delete'){
+            return $this->deleteServiceItem($data);
         }
-        
-        $carData['serviceItems'] = $serviceItemRepository->serviceItem($data['service_id']);
+    }
+
+    public function saveServiceItem($data)
+    {
+        $this->serviceItemRepo->save([
+            'service_id' => $data['service_id'],
+            'desc' => $data['desc'],
+            'pieces' => $data['pieces'],
+            'piece_price' => $data['piece_price'],
+        ]);
+        return $this->serviceItemTable($data);
+    }
+
+    public function deleteServiceItem($data)
+    {
+        $this->serviceItemRepo->delete($data['serviceItem_id']);
+        return $this->serviceItemTable($data['service_id']);
+    }
+
+    private function serviceItemTable ($data){
+        $carData['serviceItems'] =  $this->serviceItemRepo->serviceItem($data['service_id']);
         $carData['totalSum'] = $carData['serviceItems']['totalSum'];
         unset( $carData['serviceItems']['totalSum'] );
 
         $html = view('admin.serviceItem.table', compact('carData'))->render();
         return response()->json(compact('html'));
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

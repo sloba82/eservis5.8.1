@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Appoitment;
+
 use App\Repository\AppCache\AppCacheRepository;
 use App\Repository\Appointment\AppointmentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Response;
-
 
 class AppoitmentController extends Controller
 {
