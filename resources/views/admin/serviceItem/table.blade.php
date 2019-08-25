@@ -26,7 +26,10 @@
                               data-id="{{$serviceItem['id']}}"
                               data-toggle="modal"
                               data-target="#editModal"
-                              data-whatever="Ovde menjati tekst">
+                              data-desc="{{$serviceItem['desc']}}"
+                              data-piece_price="{{$serviceItem['piece_price']}}"
+                              data-pieces="{{$serviceItem['pieces']}}"
+                              data-title="Edit: {{$serviceItem['desc']}}">
                          <i class="far fa-edit"></i></span>
                         <strong>/</strong>
                         <span style="color: red"

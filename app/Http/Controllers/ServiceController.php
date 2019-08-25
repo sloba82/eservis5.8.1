@@ -24,8 +24,6 @@ class ServiceController extends Controller
         $this->servicesRepo = new ServicesRepository();
         $this->carUserRepo = new CarUserRepository();
         $this->carRepo = new CarRepository();
-
-        /* nemoze ovako sa pravi objekat sato sto  se nemo dobiti promene da save i delete */
         $this->serviceItemRepo = new ServiceItemRepository();
     }
 
@@ -105,6 +103,12 @@ class ServiceController extends Controller
         if($data['action'] == 'delete'){
             return $this->deleteServiceItem($data);
         }
+
+        if($data['action'] == 'update'){
+            return $this->updateServiceItem($data);
+        }
+
+
     }
 
     public function saveServiceItem($data)
@@ -121,7 +125,12 @@ class ServiceController extends Controller
     public function deleteServiceItem($data)
     {
         $this->serviceItemRepo->delete($data['serviceItem_id']);
-        return $this->serviceItemTable($data['service_id']);
+        return $this->serviceItemTable($data);
+    }
+
+    public function updateServiceItem($data){
+        $this->serviceItemRepo->update($data, $data['serviceItem_id']);
+        return $this->serviceItemTable($data);
     }
 
     private function serviceItemTable ($data){

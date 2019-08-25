@@ -59,7 +59,7 @@
                                        id="pieces">
                             </div>
                             <div class="row">
-                                <button type="submit" class="btn btn-success btn-sm pull-right">Sacuvaj</button>
+                                <button type="submit" class="btn btn-success btn-sm pull-right"><i class="far fa-save"></i> Sacuvaj</button>
                             </div>
                         </div>
                     </form>
@@ -247,11 +247,12 @@
 
             $('#editModal').on('show.bs.modal', function (event) {
                 let button = $(event.relatedTarget); // Button that triggered the modal
-                let recipient = button.data('whatever'); // Extract info from data-* attributes
-
                 let modal = $(this);
-                modal.find('.modal-title').text(recipient);
-                modal.find('.modal-body input').val(recipient)
+                modal.find('.modal-title').text(button.data('title'));
+                modal.find('.modal-body input[name="desc"]').val(button.data('desc'));
+                modal.find('.modal-body input[name="piece_price"]').val(button.data('piece_price'));
+                modal.find('.modal-body input[name="pieces"]').val(button.data('pieces'));
+                modal.find('.modal-body input[name=serviceItem_id]').val(button.data('id'));
             });
 
             $('#delateModal').on('show.bs.modal', function (event) {
@@ -264,7 +265,7 @@
                 modal.find('.modal-body input[name=serviceItem_id]').val(button.data('id'));
             });
 
-       $("#formSaveItem, #deleteItem").on('submit', function (e) {
+       $("#formSaveItem, #deleteItem, #formEditItem").on('submit', function (e) {
             e.preventDefault();
 
             let formID = $(this).find('form').context.id;

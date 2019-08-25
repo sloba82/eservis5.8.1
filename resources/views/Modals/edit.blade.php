@@ -9,22 +9,42 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <form action=""
+                  id="formEditItem"
+                  method="POST"
+                  role="form">
+                <input type="hidden" name="service_id" value="{{$carData['serviceData']['id']}}">
+                <input type="hidden" name="action" value="update">
+                <input type="hidden" name=serviceItem_id value="">
+                {{ csrf_field() }}
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Recipient:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
-                    </div>
-                </form>
+
+                    <label for="desc">Opis servisne stavke:</label>
+                    <input name="desc"
+                           type="text"
+                           class="form-control"
+                           autocomplete="off"
+                           id="desc">
+                    <label for="piece_price">Cena po komadu:</label>
+                    <input name="piece_price"
+                           type="number"
+                           class="form-control"
+                           autocomplete="off"
+                           id="piece_price">
+
+                    <label for="pieces">Komada:</label>
+                    <input name="pieces"
+                           type="number"
+                           class="form-control"
+                           autocomplete="off"
+                           id="pieces">
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkazi</button>
+                <button type="button" class="btn btn-primary"><i class="far fa-save"></i> Sacuvaj</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
