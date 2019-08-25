@@ -9,15 +9,17 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action=""
-                  id="formEditItem"
-                  method="POST"
-                  role="form">
+
+            <div class="modal-body">
+                <form action=""
+                      id="formEditItem"
+                      method="POST"
+                      role="form">
+
+                    {{ csrf_field() }}
                 <input type="hidden" name="service_id" value="{{$carData['serviceData']['id']}}">
                 <input type="hidden" name="action" value="update">
-                <input type="hidden" name=serviceItem_id value="">
-                {{ csrf_field() }}
-            <div class="modal-body">
+                <input type="hidden" name="serviceItem_id">
 
                     <label for="desc">Opis servisne stavke:</label>
                     <input name="desc"
@@ -39,12 +41,13 @@
                            autocomplete="off"
                            id="pieces">
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkazi</button>
-                <button type="button" class="btn btn-primary"><i class="far fa-save"></i> Sacuvaj</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Otkazi</button>
+                    <button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Sacuvaj</button>
+                </div>
             </form>
+            </div>
+
         </div>
     </div>
 </div>

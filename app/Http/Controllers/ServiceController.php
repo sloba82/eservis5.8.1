@@ -81,13 +81,14 @@ class ServiceController extends Controller
     {
         $carData['serviceData'] = $this->servicesRepo->getById( $serviceID );
         $userCarData = $this->carUserRepo->userCarData( 'car', $carID );
+
         if ($userCarData) {
             $carData['carData'] = get_object_vars( $userCarData );
         } else {
             $carData['carData'] = $this->carRepo->getById( $carID );
         }
         $carData['serviceItems'] = $this->serviceItemRepo->serviceItem( $serviceID );
-        $carData['totalSum'] = $carData['serviceItems']['totalSum'];
+        $carData['totalSum'] = $this->serviceItemRepo->totalItemSum;
         unset( $carData['serviceItems']['totalSum'] );
 
         return view( '/admin/admin_service-edit', compact( 'carData' ) );
@@ -107,7 +108,6 @@ class ServiceController extends Controller
         if($data['action'] == 'update'){
             return $this->updateServiceItem($data);
         }
-
 
     }
 
@@ -129,14 +129,16 @@ class ServiceController extends Controller
     }
 
     public function updateServiceItem($data){
+
         $this->serviceItemRepo->update($data, $data['serviceItem_id']);
         return $this->serviceItemTable($data);
     }
 
-    private function serviceItemTable ($data){
-        $carData['serviceItems'] =  $this->serviceItemRepo->serviceItem($data['service_id']);
-        $carData['totalSum'] = $carData['serviceItems']['totalSum'];
-        unset( $carData['serviceItems']['totalSum'] );
+    private function serviceItemTable ($data)
+    {
+        $serviceItemRepo = $this->serviceItemRepo;
+        $carData['serviceItems'] =  $serviceItemRepo->serviceItem($data['service_id']);
+        $carData['totalSum'] = $serviceItemRepo->totalItemSum;
 
         $html = view('admin.serviceItem.table', compact('carData'))->render();
         return response()->json(compact('html'));

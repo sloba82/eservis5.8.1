@@ -11,10 +11,13 @@ use App\ServiceItem;
 class ServiceItemRepository implements CRUDInterface
 {
 
+    public $totalItemSum;
+
+
     public function save($params)
     {
 
-        $total = $params['piece_price'] * $params['pieces'];
+        $total = $this->totalItemPrice( $params['piece_price'], $params['pieces']);
         $id = DB::table('service_items')->insertGetId([
             'service_id' => $params['service_id'],
             'desc' => $params['desc'],
@@ -26,6 +29,10 @@ class ServiceItemRepository implements CRUDInterface
             'updated_at' => Carbon::now(),
         ]);
         return $id;
+    }
+
+    private function totalItemPrice($priceItem, $pieces){
+        return $priceItem * $pieces;
     }
 
     public function getAll()
@@ -41,6 +48,7 @@ class ServiceItemRepository implements CRUDInterface
 
     public function update($params, $id)
     {
+        $params['total'] = $this->totalItemPrice($params['piece_price'], $params['pieces']);
         $ServiceItem = ServiceItem::findOrFail($id);
         $ServiceItem->update($params);
     }
@@ -62,7 +70,7 @@ class ServiceItemRepository implements CRUDInterface
     {
         $serviceItems = \App\Service::findOrFail($serviceID)->serviceItems;
         $items = [];
-        $items['totalSum'] = 0;
+        $total = 0;
         foreach ($serviceItems  as $serviceItem) {
             array_push(
                 $items,
@@ -75,8 +83,10 @@ class ServiceItemRepository implements CRUDInterface
                     'total' => $serviceItem->total,
                 ]
             );
-            $items['totalSum'] += $serviceItem->total;
+            $total += $serviceItem->total;
         }
+
+        $this->totalItemSum = $total;
         return $items;
     }
 

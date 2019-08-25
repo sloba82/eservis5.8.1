@@ -23,9 +23,9 @@
                     </td>
                     <td class="text-right">
                         <span style="color: green"
-                              data-id="{{$serviceItem['id']}}"
                               data-toggle="modal"
                               data-target="#editModal"
+                              data-id="{{$serviceItem['id']}}"
                               data-desc="{{$serviceItem['desc']}}"
                               data-piece_price="{{$serviceItem['piece_price']}}"
                               data-pieces="{{$serviceItem['pieces']}}"
@@ -33,9 +33,9 @@
                          <i class="far fa-edit"></i></span>
                         <strong>/</strong>
                         <span style="color: red"
-                              data-id="{{$serviceItem['id']}}"
                               data-toggle="modal"
                               data-target="#delateModal"
+                              data-id="{{$serviceItem['id']}}"
                               data-whatever="{{$serviceItem['id']}}"
                               data-title="Paznja brisanje stavke!"
                               data-desc="{{$serviceItem['desc']}}">
