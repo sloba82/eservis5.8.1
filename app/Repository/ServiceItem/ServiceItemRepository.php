@@ -62,9 +62,7 @@ class ServiceItemRepository implements CRUDInterface
     /**
      * @param $serviceID
      * @return
-     *      array and extra element 'totalSum'
-     *      witch needs to be deleted from array
-     *      before loop
+     *      array and sets 'totalSum'
      */
     public function serviceItem($serviceID)
     {

@@ -30,10 +30,31 @@ class AppointmentRepository implements CRUDInterface
         ]);
         $Appopitment->save();
 
-        /**
-         * After save delete previous cache and create new
-         *
-         */
+        /**  After save delete previous cache and create new **/
+        $this->delateCreateCache();
+
+    }
+
+    public function getAll(){
+        return Appoitment::all();
+    }
+
+    public function getById($id){
+        return Appoitment::find($id);
+    }
+
+    public function update($params, $id){
+        $Appopitment = Appoitment::findOrFail($id);
+        $Appopitment->update($params);
+        /** After update delete previous cache and create new **/
+        $this->delateCreateCache();
+    }
+
+    public function delete($id){
+        $Appopitment = Appoitment::find($id);
+        $Appopitment->delete();
+
+        /** After delete, delete previous cache and create new **/
         $this->delateCreateCache();
 
     }
@@ -48,35 +69,6 @@ class AppointmentRepository implements CRUDInterface
                 'value' => $this->getAll(),
             ]
         );
-    }
-
-    public function getAll(){
-        return Appoitment::all();
-    }
-
-    public function getById($id){
-        return Appoitment::find($id);
-    }
-
-    public function update($params, $id){
-        $Appopitment = Appoitment::findOrFail($id);
-        $Appopitment->update($params);
-        /**
-         * After update delete previous cache and create new
-         *
-         */
-        $this->delateCreateCache();
-    }
-
-    public function delete($id){
-        $Appopitment = Appoitment::find($id);
-        $Appopitment->delete();
-        /**
-         * After delete, delete previous cache and create new
-         *
-         */
-        $this->delateCreateCache();
-
     }
 
 

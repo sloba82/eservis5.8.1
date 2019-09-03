@@ -35,9 +35,9 @@ class AppCacheRepository
      * @param $id
      * @return mixed
      *
-     id = 'nameOfCache',
-     use App\Repository\AppCache\AppCacheRepository;
-     AppCacheRepository::checkCache($id);
+     *id = 'nameOfCache',
+     *use App\Repository\AppCache\AppCacheRepository;
+     *AppCacheRepository::checkCache($id);
      * check if cache exists.
      *
      */
@@ -50,9 +50,9 @@ class AppCacheRepository
      * @param $id
      * @return mixed
      *
-     id = 'nameOfCache',
-     use App\Repository\AppCache\AppCacheRepository;
-     AppCacheRepository::getCache($cache);
+     *id = 'nameOfCache',
+     *use App\Repository\AppCache\AppCacheRepository;
+     *AppCacheRepository::getCache($cache);
      *
      */
     static function getCache($id){
@@ -63,9 +63,9 @@ class AppCacheRepository
      * @param $id
      * @return mixed
      *
-     id = 'nameOfCache',
-     use App\Repository\AppCache\AppCacheRepository;
-     AppCacheRepository::deleteCache($id);
+     *id = 'nameOfCache',
+     *use App\Repository\AppCache\AppCacheRepository;
+     *AppCacheRepository::deleteCache($id);
      *
      */
     static function deleteCache ($id) {

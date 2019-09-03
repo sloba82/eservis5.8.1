@@ -268,7 +268,7 @@
 
        $("#formSaveItem, #deleteItem, #formEditItem").on('submit', function (e) {
             e.preventDefault();
-
+           
             let formID = $(this).find('form').context.id;
             let form = $("#" + formID).serializeArray();
             let values = {};
@@ -292,9 +292,21 @@
                 success: function (response) {
                     $('#table').html(response.html);
                     $("#formSaveItem").trigger("reset");
+                    if (typeof response){
+
+                        if (formID === 'deleteItem' ){
+                            $('#delateModal').modal('toggle');
+                            return false;
+                        }
+                        if(formID === 'formEditItem'){
+                            $('#editModal').modal('toggle');
+                            return false;
+                        }
+                    }
 
                 }
             });
+           return false;
 
         });
 
