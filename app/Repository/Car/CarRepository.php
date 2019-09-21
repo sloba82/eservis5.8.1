@@ -11,14 +11,14 @@ class CarRepository implements CRUDInterface
 {
 
 
-    private $data;
+    private static $data;
 
     public function __get($field)
     {
         return array_key_exists($field, $this->data) ? $this->data[$field] : null;
     }
 
-    public function save($params)
+    public static function save($params)
     {
 
         $params['numberplate'] = str_replace(['-', ' ', '*', '  '], '', $params['numberplate']);
@@ -33,7 +33,7 @@ class CarRepository implements CRUDInterface
             'updated_at' => Carbon::now(),
         ]);
 
-        $this->data['id'] = $id;
+        self::$data['id'] = $id;
         return $id;
     }
 
@@ -67,25 +67,25 @@ class CarRepository implements CRUDInterface
         }
     }
 
-    public function getAll()
+    public static function getAll()
     {
         return Car::all();
     }
 
-        public function getById($id)
+    public static function getById($id)
     {
         $car = Car::find($id);
         return $car->toArray();
 
     }
 
-        public function update($params, $id)
+    public static function update($params, $id)
     {
         $Car = Car::findOrFail($id);
         $Car->update($params);
     }
 
-        public function delete($id)
+    public static function delete($id)
     {
         $Car = Car::find($id);
         $Car->delete();

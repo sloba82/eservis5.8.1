@@ -11,31 +11,31 @@ interface CRUDInterface
      * nesded parameter to create entety
      *
      */
-    public function save($params);
+    public static function save($params);
 
     /**
      * @return Array
      *  alle entety values form DB
      */
-    public function getAll();
+    public static function getAll();
 
     /**
      * @param $id of requestet entety
      * @return reqested entety
      */
-    public function getById($id);
+    public static function getById($id);
 
     /**
      * @param $params Array needet to upadate
      * @param $id entety to update
      *
      */
-    public function update($params, $id);
+    public static function update($params, $id);
 
     /**
      * @param $id of entety to delete
      *
      */
-    public function delete($id);
+    public static function delete($id);
 }
 
