@@ -118,13 +118,13 @@ class AppoitmentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AppointmentRepository $appointmentRepository, $id)
+    public function destroy($id)
     {
-        $appointmentRepository->delete($id);
+        AppointmentRepository::delete($id);
         return $this->index();
     }
 
-    public function ajaxConfirm(Request $request, AppointmentRepository $appointmentRepository)
+    public function ajaxConfirm(Request $request)
     {
         $id = $request['AppData']['id'];
         if ($request['AppData']['field'] == 'active') {
@@ -135,7 +135,8 @@ class AppoitmentController extends Controller
 
         if ($request['AppData']['field']) {
 
-            $appointmentRepository->update([$request['AppData']['field'] => $value], $id);
+
+            AppointmentRepository::update([$request['AppData']['field'] = $value], $id);
             $data = 'test';
             return response()->json([
                 'success' => true,

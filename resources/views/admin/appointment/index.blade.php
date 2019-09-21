@@ -21,27 +21,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if (count($allapointments))
-                    @foreach($allapointments as $allapointment )
-                        @if ($allapointment->active == 1)
-                            <tr class="hover @if($allapointment->confirm) confirm @endif ">
-                                <td> {{$allapointment->id}}</td>
-                                <td>{{str_limit($allapointment->appoitment, $limit = 16, $end ='' ) }} </td>
-                                <td>{{ $allapointment->name}} </td>
-                                <td>{{ $allapointment->last_name}} </td>
-                                <td>{{ $allapointment->phone}} </td>
-                                <td>{{ $allapointment->veh_make}} </td>
-                                <td>{{ str_limit( $allapointment->comment_admin, $limit = 20, $end = '...') }}</td>
-                                <td><a href="{{ route('appointment.edit', $allapointment->id ) }}">
+                @if (count($allAppointments))
+                    @foreach($allAppointments as $appointment )
+                        @if ($appointment->active == 1)
+                            <tr class="hover @if($appointment->confirm) confirm @endif ">
+                                <td> {{$appointment->id}}</td>
+                                <td>{{str_limit($appointment->appoitment, $limit = 16, $end ='' ) }} </td>
+                                <td>{{ $appointment->name}} </td>
+                                <td>{{ $appointment->last_name}} </td>
+                                <td>{{ $appointment->phone}} </td>
+                                <td>{{ $appointment->veh_make}} </td>
+                                <td>{{ str_limit( $appointment->comment_admin, $limit = 20, $end = '...') }}</td>
+                                <td><a href="{{ route('appointment.edit', $appointment->id ) }}">
                                         <button type="button" class="btn btn-info btn-sm">Detalji / Izmene</button>
                                     </a></td>
                                 <td>
                                     <button
-                                            id="{{$allapointment->id}}"
+                                            id="{{$appointment->id}}"
                                             type="button"
                                             data-action="confirm"
                                             class="btn btn-success btn-sm"
-                                            @if($allapointment->confirm)
+                                            @if($appointment->confirm)
                                             disabled
                                             @endif
                                             >Potvrdi
