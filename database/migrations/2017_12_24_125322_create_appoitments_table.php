@@ -16,13 +16,13 @@ class CreateAppoitmentsTable extends Migration
         Schema::create('appoitments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->nullable();
-            $table->string('name');
-            $table->string('last_name');
-            $table->string('email')->nullable();
-            $table->string('phone');
-            $table->string('veh_make')->nullable();
+            $table->string('name', 32);
+            $table->string('last_name', 32);
+            $table->string('email', 256)->nullable();
+            $table->string('phone', 32);
+            $table->string('veh_make', 128)->nullable();
             $table->dateTime('appoitment');
-            $table->string('description', 512)->nullable();
+            $table->string('description', 1024)->nullable();
             $table->string('comment_admin');
             $table->integer('active')->nullable();
             $table->integer('confirm')->nullable();

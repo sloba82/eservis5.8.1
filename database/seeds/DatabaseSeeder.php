@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AppointmentSeeder::class);
         $this->call(ServicesSeeder::class);
         $this->call(ServiceItemSeeder::class);
+        $this->call(CardReaderSeeder::class);
     }
 }

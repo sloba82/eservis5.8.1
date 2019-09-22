@@ -17,12 +17,12 @@ class CreateServicesTable extends Migration
             $table->increments('id');
             $table->integer('car_id');
             $table->integer('user_id');
-            $table->string('service_name')->nullable();
-            $table->string('service_man');
-            $table->string('service_status');
-            $table->string('kilometer');
+            $table->string('service_name', 256)->nullable();
+            $table->string('service_man', 128);
+            $table->string('service_status', 128);
+            $table->string('kilometer', 16);
             $table->dateTime('service_date');
-            $table->string('description');
+            $table->string('description', 1024);
             $table->timestamps();
         });
     }

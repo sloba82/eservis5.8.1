@@ -19,5 +19,16 @@ class ServiceItem extends Model
         'total'
     ];
 
+    /**
+     * Rules to be passed while creating new Service item.
+     *
+     * @var array
+     */
+    public static $rules = [
+        'desc'        => 'required|max:256',
+        'pieces'      =>'required',
+        'piece_price' =>'required',
+    ];
+
 
 }
