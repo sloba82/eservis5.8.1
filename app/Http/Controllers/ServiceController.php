@@ -15,15 +15,11 @@ class ServiceController extends Controller
 {
 
     private $servicesRepo;
-    private $carUserRepo;
-    private $carRepo;
     private $serviceItemRepo;
 
     public function __construct()
     {
         $this->servicesRepo = new ServicesRepository();
-        $this->carUserRepo = new CarUserRepository();
-        $this->carRepo = new CarRepository();
         $this->serviceItemRepo = new ServiceItemRepository();
     }
 
@@ -62,7 +58,7 @@ class ServiceController extends Controller
         $request['service_man'] = $user->name . ' ' . $user->last_name;
         $carID = $request['carID'];
         $request['service_date'] = $helperRepository->timeFormat( $request['service_date'] );
-        $serviceID = $this->servicesRepo->save( $request );
+        $serviceID = ServicesRepository::save( $request );
 
         if ($carID) {
             $role = UserRole::find( $user->role );
@@ -79,13 +75,13 @@ class ServiceController extends Controller
 
     public function serviceEditCar($carID, $serviceID)
     {
-        $carData['serviceData'] = $this->servicesRepo->getById( $serviceID );
-        $userCarData = $this->carUserRepo->userCarData( 'car', $carID );
+        $carData['serviceData'] = ServicesRepository::getById( $serviceID );
+        $userCarData = CarUserRepository::userCarData( 'car', $carID );
 
         if ($userCarData) {
             $carData['carData'] = get_object_vars( $userCarData );
         } else {
-            $carData['carData'] = $this->carRepo->getById( $carID );
+            $carData['carData'] = CarRepository::getById( $carID );
         }
         $carData['serviceItems'] = $this->serviceItemRepo->serviceItem( $serviceID );
         $carData['totalSum'] = $this->serviceItemRepo->totalItemSum;
@@ -94,8 +90,13 @@ class ServiceController extends Controller
         return view( '/admin/admin_service-edit', compact( 'carData' ) );
     }
 
-    public function ajaxServiceItem(Request $request){
-
+    /**
+     * @param Request $request
+     * saves, delete or edits data,
+     * trigerd by ajax from service edit view (admin_service-edit),
+     */
+    public function ajaxServiceItem(Request $request)
+    {
         $data = json_decode($request->getContent(), true);
         if ($data['action'] == 'save' ){
             return $this->saveServiceItem($data);
@@ -108,12 +109,11 @@ class ServiceController extends Controller
         if($data['action'] == 'update'){
             return $this->updateServiceItem($data);
         }
-
     }
 
     public function saveServiceItem($data)
     {
-        $this->serviceItemRepo->save([
+        ServiceItemRepository::save([
             'service_id' => $data['service_id'],
             'desc' => $data['desc'],
             'pieces' => $data['pieces'],
@@ -124,16 +124,21 @@ class ServiceController extends Controller
 
     public function deleteServiceItem($data)
     {
-        $this->serviceItemRepo->delete($data['serviceItem_id']);
+        ServiceItemRepository::delete($data['serviceItem_id']);
         return $this->serviceItemTable($data);
     }
 
-    public function updateServiceItem($data){
-
-        $this->serviceItemRepo->update($data, $data['serviceItem_id']);
+    public function updateServiceItem($data)
+    {
+        ServiceItemRepository::update($data, $data['serviceItem_id']);
         return $this->serviceItemTable($data);
     }
 
+
+    /**
+     * @param $data
+     * returns table data to view
+     */
     private function serviceItemTable ($data)
     {
         $serviceItemRepo = $this->serviceItemRepo;

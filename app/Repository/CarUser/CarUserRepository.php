@@ -15,7 +15,7 @@ class CarUserRepository implements CRUDInterface
      * @param $entity can be user or car
      * @param $id is id of car or user
      */
-    public function userCarData($entity, $id)
+    public static function userCarData($entity, $id)
     {
         $userCarData = 0;
         if ($entity == 'car') {
@@ -47,7 +47,7 @@ class CarUserRepository implements CRUDInterface
         return  $userCarData;
     }
 
-    public function save($params)
+    public static function save($params)
     {
         $Appopitment = new CarUser([
             'car_id' => $params['car_id'],
@@ -56,23 +56,23 @@ class CarUserRepository implements CRUDInterface
         $Appopitment->save();
     }
 
-    public function getAll()
+    public static function getAll()
     {
         return CarUser::all();
     }
 
-    public function getById($id)
+    public static function getById($id)
     {
         return CarUser::find($id);
     }
 
-    public function update($params, $id)
+    public static function update($params, $id)
     {
         $CarUser = CarUser::findOrFail($id);
         $CarUser->update($params);
     }
 
-    public function delete($id)
+    public static function delete($id)
     {
         $CarUser = CarUser::find($id);
         $CarUser->delete();
