@@ -16,17 +16,17 @@ class AppoitmentController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(AppointmentRepository $appointmentRepository)
+    public function index()
     {
-        $allapointments ='';
+        $allAppointments ='';
         if (AppCacheRepository::checkCache('allAppointments')) {
-            $allapointments = AppCacheRepository::getCache('allAppointments');
+            $allAppointments = AppCacheRepository::getCache('allAppointments');
         }
         else{
-            $allapointments = $appointmentRepository->getAll();
+            $allAppointments = AppointmentRepository::getAll();
         }
 
-        return view('admin.appointment.index', compact('allapointments'));
+        return view('admin.appointment.index', compact('allAppointments'));
     }
 
     /**
@@ -45,7 +45,7 @@ class AppoitmentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, AppointmentRepository $appointmentRepository)
+    public function store(Request $request)
     {
         $params = $request->all();
         $params['user_id'] = '';
@@ -58,7 +58,7 @@ class AppoitmentController extends Controller
         $params['appoitment'] = str_replace("/", "-", $params['appoitment']);
         $params['appoitment'] .= ':00';
 
-        $appointmentRepository->save($params);
+        AppointmentRepository::save($params);
 
         return redirect('/');
     }
@@ -81,14 +81,14 @@ class AppoitmentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, AppointmentRepository $appointmentRepository)
+    public function edit($id)
     {
-        $Appopitment = $appointmentRepository->getById($id);
-        if (!$Appopitment) {
-            $Appopitment = 'Nothing to show';
+        $Appointment = AppointmentRepository::getById($id);
+        if (!$Appointment) {
+            $Appointment = 'Nothing to show';
         }
 
-        return view('admin.appointment.edit', compact('Appopitment'));
+        return view('admin.appointment.edit', compact('Appointment'));
     }
 
     /**
@@ -98,7 +98,7 @@ class AppoitmentController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AppointmentRepository $appointmentRepository, $id)
+    public function update(Request $request, $id)
     {
         if (strpos($request['appoitment'], '/')) {
             $dateAndTime = str_replace("/", "-", $request['appoitment']);
@@ -106,7 +106,7 @@ class AppoitmentController extends Controller
             $request['appoitment'] = $dateAndTime;
         }
         $request['confirm'] = intval($request['confirm']);
-        $appointmentRepository->update($request->all(), $id);
+        AppointmentRepository::update($request->all(), $id);
 
         return redirect('/appointment');
 

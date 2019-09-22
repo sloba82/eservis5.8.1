@@ -26,7 +26,7 @@ class AppCacheRepository
      *
      *
      */
-    static function storeCache($params)
+    public static function storeCache($params)
     {
         Cache::put($params['key'], $params['value']);
     }
@@ -42,7 +42,7 @@ class AppCacheRepository
      *
      */
 
-    static function checkCache($id){
+    public static function checkCache($id){
         return Cache::has($id);
     }
 
@@ -55,7 +55,7 @@ class AppCacheRepository
      *AppCacheRepository::getCache($cache);
      *
      */
-    static function getCache($id){
+    public static function getCache($id){
         return Cache::get($id);
     }
 
@@ -68,7 +68,7 @@ class AppCacheRepository
      *AppCacheRepository::deleteCache($id);
      *
      */
-    static function deleteCache ($id) {
+    public static function deleteCache ($id) {
         return Cache::pull($id);
     }
 

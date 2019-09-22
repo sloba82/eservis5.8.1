@@ -13,7 +13,7 @@ class AppointmentRepository implements CRUDInterface
     /**
      * @param $params
      */
-    public function save($params) {
+    public static function save($params) {
 
         $Appopitment = new Appoitment([
             'user_id' => $params['user_id'],
@@ -31,42 +31,42 @@ class AppointmentRepository implements CRUDInterface
         $Appopitment->save();
 
         /**  After save delete previous cache and create new **/
-        $this->delateCreateCache();
+        self::delateCreateCache();
 
     }
 
-    public function getAll(){
+   public static function getAll(){
         return Appoitment::all();
     }
 
-    public function getById($id){
+   public static function getById($id){
         return Appoitment::find($id);
     }
 
-    public function update($params, $id){
-        $Appopitment = Appoitment::findOrFail($id);
-        $Appopitment->update($params);
+   public static function update($params, $id){
+        $Appoitment = Appoitment::findOrFail($id);
+        $Appoitment->update($params);
         /** After update delete previous cache and create new **/
-        $this->delateCreateCache();
+        self::delateCreateCache();
     }
 
-    public function delete($id){
-        $Appopitment = Appoitment::find($id);
-        $Appopitment->delete();
+   public static function delete($id){
+        $Appoitment = Appoitment::find($id);
+        $Appoitment->delete();
 
         /** After delete, delete previous cache and create new **/
-        $this->delateCreateCache();
+        self::delateCreateCache();
 
     }
 
-    private function delateCreateCache(){
+   private static function delateCreateCache(){
         if (AppCacheRepository::checkCache('allAppointments')) {
             AppCacheRepository::deleteCache('allAppointments');
         }
         AppCacheRepository::storeCache(
             [
                 'key' => 'allAppointments',
-                'value' => $this->getAll(),
+                'value' => self::getAll(),
             ]
         );
     }
