@@ -14,10 +14,10 @@ class ServiceItemRepository implements CRUDInterface
     public $totalItemSum;
 
 
-    public function save($params)
+    public static function save($params)
     {
 
-        $total = $this->totalItemPrice( $params['piece_price'], $params['pieces']);
+        $total = self::totalItemPrice( $params['piece_price'], $params['pieces']);
         $id = DB::table('service_items')->insertGetId([
             'service_id' => $params['service_id'],
             'desc' => $params['desc'],
@@ -31,29 +31,29 @@ class ServiceItemRepository implements CRUDInterface
         return $id;
     }
 
-    private function totalItemPrice($priceItem, $pieces){
+    private static function totalItemPrice($priceItem, $pieces){
         return $priceItem * $pieces;
     }
 
-    public function getAll()
+    public static function getAll()
     {
         return ServiceItem::all();
     }
 
-    public function getById($id)
+    public static function getById($id)
     {
         $ServiceItem = ServiceItem::find($id);
         return $ServiceItem->toArray();
     }
 
-    public function update($params, $id)
+    public static function update($params, $id)
     {
-        $params['total'] = $this->totalItemPrice($params['piece_price'], $params['pieces']);
+        $params['total'] = self::totalItemPrice($params['piece_price'], $params['pieces']);
         $ServiceItem = ServiceItem::findOrFail($id);
         $ServiceItem->update($params);
     }
 
-    public function delete($id)
+    public static function delete($id)
     {
         $ServiceItem = ServiceItem::find($id);
         $ServiceItem->delete();

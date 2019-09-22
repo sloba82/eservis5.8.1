@@ -21,8 +21,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if (count($allapointments))
-                    @foreach($allapointments as $allapointment )
+                @if (count($allAppointments))
+                    @foreach($allAppointments as $allapointment )
                         @if ($allapointment->active == 1)
                             <tr class="hover @if($allapointment->confirm) confirm @endif ">
                                 <td> {{$allapointment->id}}</td>

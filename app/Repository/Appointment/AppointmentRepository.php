@@ -2,7 +2,7 @@
 
 namespace App\Repository\Appointment;
 
-use App\Appoitment;
+use App\Appointment;
 use App\Repository\CRUDInterface;
 use App\Repository\AppCache\AppCacheRepository;
 
@@ -15,7 +15,7 @@ class AppointmentRepository implements CRUDInterface
      */
     public static function save($params) {
 
-        $Appopitment = new Appoitment([
+        $Appopitment = new Appointment([
             'user_id' => $params['user_id'],
             'name' => $params['name'],
             'last_name' => $params['last_name'],
@@ -36,23 +36,23 @@ class AppointmentRepository implements CRUDInterface
     }
 
    public static function getAll(){
-        return Appoitment::all();
+        return Appointment::all();
     }
 
    public static function getById($id){
-        return Appoitment::find($id);
+        return Appointment::find($id);
     }
 
    public static function update($params, $id){
-        $Appoitment = Appoitment::findOrFail($id);
-        $Appoitment->update($params);
+        $Appointment = Appointment::findOrFail($id);
+        $Appointment->update($params);
         /** After update delete previous cache and create new **/
         self::delateCreateCache();
     }
 
    public static function delete($id){
-        $Appoitment = Appoitment::find($id);
-        $Appoitment->delete();
+        $Appointment = Appointment::find($id);
+        $Appointment->delete();
 
         /** After delete, delete previous cache and create new **/
         self::delateCreateCache();

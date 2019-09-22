@@ -12,7 +12,7 @@ use App\Repository\CRUDInterface;
 class ServicesRepository implements CRUDInterface
 {
 
-    private $id;
+    public static $id;
 
     /**
      * Store a newly created resource in storage.
@@ -23,7 +23,7 @@ class ServicesRepository implements CRUDInterface
      *
      */
 
-    public function save($request)
+    public static function save($request)
     {
         $data = [
             'car_id' => $request['carID'],
@@ -38,12 +38,11 @@ class ServicesRepository implements CRUDInterface
             'updated_at' => Carbon::now(),
         ];
 
-
         $id = DB::table('services')->insertGetId( $data );
         $data['service_name'] = Carbon::now()."/".$id;
-        $this->update($data, $id);
+        self::update($data, $id);
 
-        return $this->id = $id;
+        return self::$id = $id;
     }
 
     public function carByID($id)
@@ -87,24 +86,24 @@ class ServicesRepository implements CRUDInterface
 
 
 
-    public function getAll()
+    public static function getAll()
     {
         return Service::all();
     }
 
-    public function getById($id)
+    public static function getById($id)
     {
         $service = Service::find($id);
         return $service->toArray();
     }
 
-    public function update($params, $id)
+    public static function update($params, $id)
     {
         $Service = Service::findOrFail($id);
         $Service->update($params);
     }
 
-    public function delete($id)
+    public static function delete($id)
     {
         $Service = Service::find($id);
         $Service->delete();
