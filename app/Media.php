@@ -10,7 +10,8 @@ class Media extends Model
     protected $table = 'media';
 
     protected $fillable = [
-        'entity',
+        'entity_type',
+        'entity_type_id',
         'type',
         'path'
     ];

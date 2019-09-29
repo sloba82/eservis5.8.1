@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repository\Pdf\PdfBill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\UserRole;
@@ -10,6 +11,7 @@ use App\Repository\CarUser\CarUserRepository;
 use App\Repository\Services\ServicesRepository;
 use App\Repository\Helper\HelperRepository;
 use App\Repository\ServiceItem\ServiceItemRepository;
+
 
 class ServiceController extends Controller
 {
@@ -136,8 +138,9 @@ class ServiceController extends Controller
 
 
     /**
-     * @param $data
      * returns table data to view
+     *
+     * @var array
      */
     private function serviceItemTable ($data)
     {
@@ -146,6 +149,17 @@ class ServiceController extends Controller
         $carData['totalSum'] = $serviceItemRepo->totalItemSum;
 
         $html = view('admin.serviceItem.table', compact('carData'))->render();
+
+
+
+        /*za brisanje*/
+        $pdf = new PdfBill();
+        $pdf->entityTypeId = $data['service_id'];
+        $pdf->fileName = 'Faktura204';
+        $pdf->printPdf($html);
+
+
+
         return response()->json(compact('html'));
     }
 

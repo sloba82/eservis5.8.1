@@ -52,3 +52,8 @@ Route::get('/test', function () {
 });
 
 
+Route::get('/pdf', 'PdfController@test');
+
+
+
+
