@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Pdf;
+namespace App\Repository\Pdf\Bill;
 
 use App\Repository\Pdf\PdfRepository;
 

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Repository\Pdf\PdfBill;
+
+use App\Repository\Pdf\Bill\PdfBill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\UserRole;
@@ -155,10 +156,10 @@ class ServiceController extends Controller
         /*za brisanje*/
         $pdf = new PdfBill();
         $pdf->entityTypeId = $data['service_id'];
-        $pdf->fileName = 'Faktura204';
+        $pdf->fileName = 'FakturaDelete';
         $pdf->printPdf($html);
 
-
+     PdfBill::delete(1);
 
         return response()->json(compact('html'));
     }
