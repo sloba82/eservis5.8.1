@@ -24,61 +24,8 @@
     <link rel="stylesheet" href="{{ URL::asset('app/assets/css/admin_style.css')}}">
     <script src="https://kit.fontawesome.com/936ebd2161.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-
-
-
 </head>
 <body>
-{{--
-<nav class="navbar navbar-default navbar-static-top navbaradmin">
-    <div class="container">
-        <div class="navbar-header">
-
-            <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#app-navbar-collapse">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- Branding Image -->
-            <a href="#" class="navbar-left">
-                <img src="{{ URL::asset('app/assets/img/logo2.png')}}">
-            </a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="top-navbar-1">
-            <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
-                &nbsp;
-            </ul>
-
-            <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href={{ route('appointment.index')}}>Sva Zakazivanja</a></li>
-                <li><a href={{ url('/service') }}>Servis</a></li>
-                <li><a href="#portfolio">Work</a></li>
-                <li><a href="#testimonials">Clients</a></li>
-                <li><a href="#footer">Contact</a></li>
-
-                @if (Route::has('login'))
-
-                    @if (Auth::check())
-                        <li><a href="{{ url('/home') }}">Home</a></li>
-                    @else
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
-                    @endif
-
-                @endif
-
-
-            </ul>
-        </div>
-    </div>
-</nav>--}}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -106,15 +53,15 @@
     </div>
 </nav>
 
-
 @yield('content')
 
-        <!-- Footer -->
+<!-- Footer -->
 
 <script src="{{ URL:: asset('js/app.js') }}"></script>
 <script src="{{ URL::asset('jquery/jquery-3.3.1.min.js') }}"></script>
-<script src="{{ URL::asset('app/assets/bootstrap/js/bootstrap.min.js')}}"></script>
+
 <script src="{{ URL::asset('app/assets/DataTables/datatables.js') }}"></script>
+<script src="{{ URL::asset('app/assets/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{ URL::asset('app/assets/datetimepicker/build/jquery.datetimepicker.full.min.js')}}"></script>
 <script src="{{ URL::asset('app/assets/jquery-ui/jquery-ui.min.js')}}"></script>
 <script src="{{ URL::asset('jquery/jquery-admin.js')}}"></script>

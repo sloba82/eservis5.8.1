@@ -2,7 +2,7 @@
 
 namespace App\Repository\Pdf;
 
-trait FooterHtmp {
+trait FooterHtml {
 
 
     /**

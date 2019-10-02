@@ -22,7 +22,7 @@ abstract class PdfRepository implements CRUDInterface {
 
 
     use HeadHtml;
-    use FooterHtmp;
+    use FooterHtml;
 
     public $entityType = 'test';
     public $entityTypeId ='';

@@ -12,9 +12,8 @@ class AppointmentSeeder extends Seeder
     public function run()
     {
         //
-        for ($x = 0; $x <= 10000; $x++) {
+        for ($x = 0; $x <= 100; $x++) {
             DB::table('appoitments')->insert([
-
                 'user_id' =>1,
                 'name' => 'test'. $x,
                 'last_name' => 'last test',

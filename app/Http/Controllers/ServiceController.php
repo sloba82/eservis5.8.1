@@ -150,17 +150,6 @@ class ServiceController extends Controller
         $carData['totalSum'] = $serviceItemRepo->totalItemSum;
 
         $html = view('admin.serviceItem.table', compact('carData'))->render();
-
-
-
-        /*za brisanje*/
-        $pdf = new PdfBill();
-        $pdf->entityTypeId = $data['service_id'];
-        $pdf->fileName = 'FakturaDelete';
-        $pdf->printPdf($html);
-
-     PdfBill::delete(1);
-
         return response()->json(compact('html'));
     }
 
