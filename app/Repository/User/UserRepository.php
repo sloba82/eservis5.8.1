@@ -14,11 +14,17 @@ class UserRepository implements CRUDInterface {
     {
 
         $id = DB::table('users')->insertGetId([
-
+            'name' => $params['name'],
+            'email' => $params['email'],
+            'last_name' => $params['last_name'],
+            'password' => bcrypt($params['password']),
+            'address' => $params['address'],
+            'city' => $params['city'],
+            'phone' => $params['phone'],
+            'role' => $params['role'],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-
     }
 
 
@@ -36,6 +42,7 @@ class UserRepository implements CRUDInterface {
 
     public static function update($params, $id)
     {
+
         $user = User::findOrFail($id);
         $user->update($params);
     }

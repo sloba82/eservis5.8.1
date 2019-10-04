@@ -3,6 +3,10 @@
 
 @section('content')
     <div class="container">
+    <form role="form" method="post"
+          action="{{ route('user.update', $user['id']) }}">
+        {{ csrf_field() }}
+        {{ method_field('PUT') }}
         <div class="col-xs-12 col-md-8 col-lg-8">
             <div class="panel panel-default height">
                 <div class="panel-heading">
@@ -30,6 +34,19 @@
                            autocomplete="off"
                            id="phone"
                            value="{{$user['phone']}}">
+                    <label for="email">Email:</label>
+                    <input name="email"
+                           type="email"
+                           class="form-control"
+                           autocomplete="off"
+                           id="email"
+                           value="{{$user['email']}}">
+                    <label for="password">Sifra:</label>
+                    <input name="password"
+                           type="password"
+                           class="form-control"
+                           autocomplete="off"
+                           id="password">
                     <label for="address">Adresa:</label>
                     <input name="address"
                            type="text"
@@ -44,13 +61,6 @@
                            autocomplete="off"
                            id="city"
                            value="{{$user['city']}}">
-                    <label for="email">Email:</label>
-                    <input name="email"
-                           type="email"
-                           class="form-control"
-                           autocomplete="off"
-                           id="email"
-                           value="{{$user['email']}}">
                     <label for="role">Uloga:</label>
                     <input name="role"
                            type="text"
@@ -58,12 +68,12 @@
                            autocomplete="off"
                            id="role"
                            value="{{$user['role']}}">
-
                 </div>
                 <div class="row">
                     <button type="submit" class="btn btn-success btn-sm pull-right"><i class="far fa-save"></i> Sacuvaj</button>
                 </div>
             </div>
         </div>
+    </form>
     </div>
 @endsection

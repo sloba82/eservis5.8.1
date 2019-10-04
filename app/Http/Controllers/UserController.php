@@ -40,6 +40,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        UserRepository::save($request);
     }
 
     /**
@@ -79,6 +80,8 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request = $request->all();
+        UserRepository::update($request, $id);
     }
 
     /**
