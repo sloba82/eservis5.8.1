@@ -41,6 +41,7 @@ Route::middleware(['auth', 'roles:admin,serviceman' ])->group(function () {
     Route::post('/serviceitem', 'ServiceController@ajaxServiceItem');
 
     Route::resource('/user', 'UserController');
+    Route::resource('/car', 'CarController');
 });
 
 

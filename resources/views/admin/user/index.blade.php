@@ -19,7 +19,6 @@
                 @if (count($allUsers))
                     @foreach($allUsers as $user )
                             <tr class="hover">
-                                <td>{{str_limit($user->appoitment, $limit = 16, $end ='' ) }} </td>
                                 <td>{{ $user->name}} </td>
                                 <td>{{ $user->last_name}} </td>
                                 <td>{{ $user->phone}} </td>
