@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Repository\User\UserRepository;
+use App\Repository\UserRole\UserRoleRepository;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -12,12 +13,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $userRole;
+
+    public function __construct()
+    {
+        $userRole = UserRoleRepository::getAll();
+        $this->userRole = $userRole->toArray();
+    }
+
     public function index()
     {
-        //
         $allUsers =  UserRepository::getAll();
         return view('admin.user.index', compact('allUsers'));
-
     }
 
     /**
@@ -28,7 +36,8 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('admin.user.create');
+        $userRole = $this->userRole;
+        return view('admin.user.create', compact('userRole'));
     }
 
     /**
@@ -39,7 +48,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
         UserRepository::save($request);
     }
 
@@ -62,12 +70,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
         $user = UserRepository::getById($id);
+        $userEdit = [
+            'user' => $user,
+            'userRole' => $this->userRole,
+        ];
 
- /*       var_dump($user);
-        die();*/
-        return view('admin.user.edit', compact('user'));
+        return view('admin.user.edit', compact('userEdit'));
     }
 
     /**
@@ -79,7 +88,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $request = $request->all();
         UserRepository::update($request, $id);
     }

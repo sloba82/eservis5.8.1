@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 
-use App\Repository\Pdf\Bill\PdfBill;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\UserRole;
 use App\Repository\Car\CarRepository;
 use App\Repository\CarUser\CarUserRepository;
-use App\Repository\Services\ServicesRepository;
 use App\Repository\Helper\HelperRepository;
 use App\Repository\ServiceItem\ServiceItemRepository;
+use App\Repository\Services\ServicesRepository;
+use App\UserRole;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class ServiceController extends Controller
@@ -25,7 +24,6 @@ class ServiceController extends Controller
         $this->servicesRepo = new ServicesRepository();
         $this->serviceItemRepo = new ServiceItemRepository();
     }
-
 
     public function index()
     {

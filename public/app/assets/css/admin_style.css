@@ -747,6 +747,10 @@ body{
     padding: 10px;
 }
 
+.paddingTop10 {
+    padding-top: 10px;
+}
+
 .margineBottom10 {
     margin-bottom: 10px;
 }
@@ -765,7 +769,9 @@ body{
     border-radius: 6px;
     margin-bottom: 20px;
 }
-
-
-
 /*END SERVICE INDEX*/
+
+/* USER VIEW */
+
+
+/* END USER VIEW */
