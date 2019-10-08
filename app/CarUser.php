@@ -13,5 +13,9 @@ class CarUser extends Model
         'user_id'
     ];
 
+    public function usersAndCars() {
+        return $this->belongsToMany('App\Car')->withPivot('car_id', 'user_id');
+
+    }
 
 }

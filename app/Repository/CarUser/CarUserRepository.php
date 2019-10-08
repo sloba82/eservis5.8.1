@@ -10,6 +10,10 @@ class CarUserRepository implements CRUDInterface
 {
 
 
+    public static function usersAndCars(){
+        $carUser = new CarUser();
+        return $carUser->usersAndCars();
+    }
 
     /**
      * @param $entity can be user or car
@@ -77,6 +81,7 @@ class CarUserRepository implements CRUDInterface
         $CarUser = CarUser::find($id);
         $CarUser->delete();
     }
+
 
 
 }

@@ -42,6 +42,7 @@ Route::middleware(['auth', 'roles:admin,serviceman' ])->group(function () {
 
     Route::resource('/user', 'UserController');
     Route::resource('/car', 'CarController');
+    Route::resource('/caruser', 'CarUserController');
 });
 
 
