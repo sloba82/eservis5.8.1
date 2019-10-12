@@ -11,3 +11,7 @@ This is app for managing car service.
 
 ## Stage of project
 This app is in developing stage.
+
+* There are broken layouts
+* Many links are not created but routs are working
+* Some of features are not implemented yet
