@@ -3,19 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class CarUser extends Model
+class CarUser extends Pivot
 {
-    protected $table = 'car_users';
+    protected $table = 'car_user';
 
     protected $fillable = [
         'car_id',
         'user_id'
     ];
 
-    public function usersAndCars() {
-        return $this->belongsToMany('App\Car')->withPivot('car_id', 'user_id');
 
-    }
 
 }

@@ -23,12 +23,12 @@ class CarUserRepository implements CRUDInterface
     {
         $userCarData = 0;
         if ($entity == 'car') {
-            if (DB::table('car_users')->where('car_id', $id)->exists()) {
+            if (DB::table('car_user')->where('car_id', $id)->exists()) {
                 $userCarData = DB::table('users')
                     ->select('users.name', 'users.last_name', 'users.address', 'users.city', 'users.phone', 'cars.*')
-                    ->leftJoin('car_users', 'car_users.user_id', '=', 'users.id')
-                    ->leftJoin('cars', 'cars.id', '=', 'car_users.car_id')
-                    ->where('car_users.car_id', $id)
+                    ->leftJoin('car_user', 'car_user.user_id', '=', 'users.id')
+                    ->leftJoin('cars', 'cars.id', '=', 'car_user.car_id')
+                    ->where('car_user.car_id', $id)
                     ->select('users.name', 'users.last_name', 'users.address', 'users.city', 'users.phone', 'cars.*')
                     ->limit(1)
                     ->get();
@@ -36,10 +36,10 @@ class CarUserRepository implements CRUDInterface
 
             }
         } elseif ($entity == 'user') {
-            if (DB::table('car_users')->where('user_id', $id)->exists()) {
+            if (DB::table('car_user')->where('user_id', $id)->exists()) {
                 $userCarData = DB::table('users')
-                    ->leftJoin('car_users', 'car_users.user_id', '=', 'users.id')
-                    ->leftJoin('cars', 'cars.id', '=', 'car_users.car_id')
+                    ->leftJoin('car_user', 'car_user.user_id', '=', 'users.id')
+                    ->leftJoin('cars', 'cars.id', '=', 'car_user.car_id')
                     ->where('users.id', $id)
                     ->select('cars.*')
                     ->get();

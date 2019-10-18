@@ -13,7 +13,7 @@ class CreateCarUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('car_users', function (Blueprint $table) {
+        Schema::create('car_user', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('car_id');
             $table->integer('user_id');
@@ -28,6 +28,6 @@ class CreateCarUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('car_users');
+        Schema::dropIfExists('car_user');
     }
 }

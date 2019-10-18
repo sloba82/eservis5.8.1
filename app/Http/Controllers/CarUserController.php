@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repository\CarUser\CarUserRepository;
+use App\User;
 
 class CarUserController extends Controller
 {
@@ -14,12 +15,12 @@ class CarUserController extends Controller
      */
     public function index()
     {
-        //
-       $carUser = CarUserRepository::usersAndCars();
 
+       $carUser = new User();
 
+dd($carUser->get());
 
-        return view('admin.caruser.index', compact('carUser'));
+       return view('admin.caruser.index', compact('carUser'));
     }
 
     /**

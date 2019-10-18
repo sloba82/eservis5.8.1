@@ -33,10 +33,10 @@ class Car extends Model
         'numberplate' =>'required|max:16',
     ];
 
-    public function cars()
+   /* public function cars()
     {
         return $this->hasMany('App\Car');
-    }
+    }*/
 
     /**
      * Check if car witht plate number has a owner.
@@ -62,5 +62,11 @@ class Car extends Model
             return 0;
         }
     }
+
+    public  function users() {
+        return $this->belongsToMany('App\User' , 'car_user');
+    }
+
+
 
 }

@@ -3,11 +3,11 @@
 @section('content')
     <div class="container">
 
-        car user
 
-       @foreach($carUser as $item)
 
-           {{$item}}
+       @foreach($carUser->cars as $item)
+
+           {{var_dump($item->numberplate)}}
 
            <hr>
 
