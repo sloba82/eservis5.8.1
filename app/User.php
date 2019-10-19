@@ -40,8 +40,6 @@ class User extends Authenticatable
 
     public function cars()
     {
-
-
         return $this->belongsToMany('App\Car', 'car_user');
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Car;
 use Illuminate\Http\Request;
 use App\Repository\CarUser\CarUserRepository;
 use App\User;
@@ -15,12 +16,9 @@ class CarUserController extends Controller
      */
     public function index()
     {
+       $users = User::all();
 
-       $carUser = new User();
-
-dd($carUser->get());
-
-       return view('admin.caruser.index', compact('carUser'));
+       return view('admin.caruser.index', compact('users'));
     }
 
     /**
