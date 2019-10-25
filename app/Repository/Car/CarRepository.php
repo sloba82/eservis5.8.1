@@ -3,6 +3,7 @@
 namespace App\Repository\Car;
 
 use App\Car;
+use App\CarUser;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Repository\CRUDInterface;
@@ -17,6 +18,7 @@ class CarRepository implements CRUDInterface
     {
         return array_key_exists($field, $this->data) ? $this->data[$field] : null;
     }
+
 
     public static function save($params)
     {

@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Car;
+use App\Repository\Car\CarRepository;
 use Illuminate\Http\Request;
 use App\Repository\CarUser\CarUserRepository;
 use App\User;
 
 class CarUserController extends Controller
 {
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +21,8 @@ class CarUserController extends Controller
     public function index()
     {
        $users = User::all();
-
-       return view('admin.caruser.index', compact('users'));
+       $availableCars = CarUserRepository::availableCars();
+       return view('admin.caruser.index')->with(['users'=>$users, 'availableCars' => $availableCars]);
     }
 
     /**
@@ -39,7 +43,8 @@ class CarUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        CarUserRepository::save($request->all());
+        return $this->index();
     }
 
     /**
@@ -79,11 +84,14 @@ class CarUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+
+        var_dump($request);
     }
 }

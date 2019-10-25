@@ -2,7 +2,9 @@
 
 namespace App\Repository\CarUser;
 
+use App\Car;
 use App\CarUser;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use App\Repository\CRUDInterface;
 use App\Repository\AppCache\AppCacheRepository;
@@ -10,10 +12,20 @@ class CarUserRepository implements CRUDInterface
 {
 
 
-    public static function usersAndCars(){
-        $carUser = new CarUser();
-        return $carUser->usersAndCars();
+
+    /**
+     * Get cars witch are not in relation to user
+     * returns array
+     */
+    public static function availableCars()
+    {
+        $carIDS =  CarUser::where('car_id' ,'>' ,0)->pluck('car_id')->toArray();
+        return Car::whereNotIn('id', $carIDS)->pluck( 'numberplate', 'id')->toArray();
     }
+
+
+
+
 
     /**
      * @param $entity can be user or car
@@ -53,11 +65,8 @@ class CarUserRepository implements CRUDInterface
 
     public static function save($params)
     {
-        $Appopitment = new CarUser([
-            'car_id' => $params['car_id'],
-            'user_id' => $params['user_id']
-        ]);
-        $Appopitment->save();
+      $user = User::find(intval($params['user_id']));
+      $user->cars()->attach(intval($params['car_id']));
     }
 
     public static function getAll()
@@ -74,6 +83,12 @@ class CarUserRepository implements CRUDInterface
     {
         $CarUser = CarUser::findOrFail($id);
         $CarUser->update($params);
+    }
+
+    public static function detachRelation($params)
+    {
+        $user = User::find(intval($params['user_id']));
+        $user->cars()->detach(intval($params['car_id']));
     }
 
     public static function delete($id)

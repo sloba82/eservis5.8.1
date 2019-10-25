@@ -34,5 +34,18 @@ class CarUserSeeder extends Seeder
             'updated_at' => '2018-02-18 01:20:44',
         ]);
 
+
+
+
+        for ($x = 0; $x <= 50; $x++) {
+
+            DB::table('car_user')->insert([
+                'car_id' => 3 + $x,
+                'user_id' => 2 + $x,
+                'created_at' => '2018-02-18 01:20:44',
+                'updated_at' => '2018-02-18 01:20:44',
+            ]);
+        }
+
     }
 }
