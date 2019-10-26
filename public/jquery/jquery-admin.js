@@ -1,5 +1,11 @@
 $(function () {
 
+    $('.addCarForm').on("submit", function(){
+       let loaderId = $(this).find('.pageloader').attr('id');
+       $("#" + loaderId).fadeIn();
+    });
+
+
     $('#datetimepicker').datetimepicker({});
 
     $('.allresoult').DataTable({

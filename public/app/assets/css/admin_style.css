@@ -771,7 +771,16 @@ body{
 }
 /*END SERVICE INDEX*/
 
-/* USER VIEW */
+
+/* car user relation /caruser */
+.pageloader
+{
+    display: none;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+}
 
 
-/* END USER VIEW */
+
+/* end car user relation /caruser */
