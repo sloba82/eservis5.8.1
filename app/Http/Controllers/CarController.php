@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repository\Car\CarRepository;
+use App\Repository\UserRole\UserRoleRepository;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -37,6 +38,10 @@ class CarController extends Controller
     public function store(Request $request)
     {
         CarRepository::save($request);
+        if ($request['action'] == 'create_user'){
+            $userRole = UserRoleRepository::getAll();
+            return view('admin.user.create', compact('userRole'));
+        }
     }
 
     /**

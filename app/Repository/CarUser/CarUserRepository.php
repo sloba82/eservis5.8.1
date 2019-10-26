@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Support\Facades\DB;
 use App\Repository\CRUDInterface;
 use App\Repository\AppCache\AppCacheRepository;
+
 class CarUserRepository implements CRUDInterface
 {
 
@@ -22,9 +23,6 @@ class CarUserRepository implements CRUDInterface
         $carIDS =  CarUser::where('car_id' ,'>' ,0)->pluck('car_id')->toArray();
         return Car::whereNotIn('id', $carIDS)->pluck( 'numberplate', 'id')->toArray();
     }
-
-
-
 
 
     /**
@@ -85,9 +83,9 @@ class CarUserRepository implements CRUDInterface
         $CarUser->update($params);
     }
 
-    public static function detachRelation($params)
+    public static function detachCarAndUser($id, $params)
     {
-        $user = User::find(intval($params['user_id']));
+        $user = User::find($id);
         $user->cars()->detach(intval($params['car_id']));
     }
 

@@ -55,16 +55,18 @@
                                class="form-control"
                                autocomplete="off"
                                id="city">
-                        <label for="role">Uloga:</label>
-                        <select class="form-control" id="role">
-                            @foreach($userRole as $role)
-                                <option value="{{$role['id']}}"
-                                        @if ($role['name']=='user')
-                                        selected
-                                        @endif
-                                >{{$role['name']}}</option>
-                            @endforeach
-                        </select>
+                        @if(Auth::user()->role == 1)
+                            <label for="role">Uloga:</label>
+                            <select class="form-control" id="role">
+                                @foreach($userRole as $role)
+                                    <option value="{{$role['id']}}"
+                                            @if ($role['name']=='user')
+                                            selected
+                                            @endif
+                                    >{{$role['name']}}</option>
+                                @endforeach
+                            </select>
+                        @endif
                         <div class="row saveButton">
                             <div class="col-xs-8 col-md-4">
                                 <button type="submit" class="btn btn-success btn-sm"><i class="far fa-save"></i> Sacuvaj</button>

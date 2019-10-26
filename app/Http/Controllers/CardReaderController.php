@@ -36,11 +36,9 @@ class CardReaderController extends Controller
     public function sendCarToService(Request $request)
     {
         $request = $request->all();
-        $car = new CarRepository();
-
-        if (!$car->checkPlateNumber($request['numberplate'])) {
+        if (!CarRepository::checkPlateNumber($request['numberplate'])) {
             $request['mileage'] = '';
-            $car->save($request);
+            CarRepository::save($request);
         }
     }
 

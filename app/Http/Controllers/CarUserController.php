@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Car;
-use App\Repository\Car\CarRepository;
-use Illuminate\Http\Request;
 use App\Repository\CarUser\CarUserRepository;
 use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class CarUserController extends Controller
 {
 
+    protected $request;
 
+    public function __construct(Request $request)
+    {
+        $this->request = $request->all();
+    }
 
     /**
      * Display a listing of the resource.
@@ -20,9 +25,9 @@ class CarUserController extends Controller
      */
     public function index()
     {
-       $users = User::all();
-       $availableCars = CarUserRepository::availableCars();
-       return view('admin.caruser.index')->with(['users'=>$users, 'availableCars' => $availableCars]);
+        $users = User::all();
+        $availableCars = CarUserRepository::availableCars();
+        return view( 'admin.caruser.index' )->with( ['users' => $users, 'availableCars' => $availableCars] );
     }
 
     /**
@@ -38,19 +43,21 @@ class CarUserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        CarUserRepository::save($request->all());
-        return $this->index();
+        $request = $request->all();
+        CarUserRepository::save( $request );
+        $userID = $request['user_id'];
+        return redirect( URL::previous() . "#$userID" );
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -61,7 +68,7 @@ class CarUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -72,13 +79,14 @@ class CarUserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
+        return $this->index();
     }
 
     /**
@@ -88,10 +96,10 @@ class CarUserController extends Controller
      * @param int $id
      * @return void
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        //
+        CarUserRepository::detachCarAndUser( $id, $this->request );
+        return redirect( URL::previous() . "#$id" );
 
-        var_dump($request);
     }
 }

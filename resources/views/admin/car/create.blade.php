@@ -4,67 +4,56 @@
 @section('content')
     <div class="container">
         <form role="form" method="post"
-              action="{{ route('user.store') }}">
+              action="{{ route('car.store') }}">
             {{ csrf_field() }}
             {{ method_field('POST') }}
+            <input type="hidden" name="action" value="{{ isset($newCar['action']) ? $newCar['action'] : '' }}">
             <div class="col-xs-12 col-md-8 col-lg-8">
                 <div class="panel panel-default height">
                     <div class="panel-heading">
                         <i class="fas fa-user-tie"></i>
-                        <h3>Dodaj korisnika</h3></div>
+                        <h3>Dodaj vozilo</h3></div>
                     <div class="panel-body">
-                        <label for="name">Ime:</label>
-                        <input name="name"
+                        <label for="numberplate">Broj tablica:</label>
+                        <input name="numberplate"
+                               type="text"
+                               class="form-control text-uppercase"
+                               autocomplete="off"
+                               id="numberplate"
+                               @if (isset($newCar['numberplate']))
+                               value="{{$newCar['numberplate']}}"
+                               @endif
+                        >
+                        <label for="make">Marka vozila:</label>
+                        <input name="make"
                                type="text"
                                class="form-control"
                                autocomplete="off"
-                               id="name">
-                        <label for="last_name">Prezime:</label>
-                        <input name="last_name"
+                               id="make">
+                        <label for="model">Model vozila:</label>
+                        <input name="model"
                                type="text"
                                class="form-control"
                                autocomplete="off"
-                               id="last_name">
-                        <label for="phone">Telefon:</label>
-                        <input name="phone"
+                               id="model">
+                        <label for="engine">Motor:</label>
+                        <input name="engine"
                                type="text"
                                class="form-control"
                                autocomplete="off"
-                               id="phone">
-                        <label for="email">Email:</label>
-                        <input name="email"
-                               type="email"
-                               class="form-control"
-                               autocomplete="off"
-                               id="email">
-                        <label for="password">Sifra:</label>
-                        <input name="password"
-                               type="password"
-                               class="form-control"
-                               autocomplete="off"
-                               id="password">
-                        <label for="address">Adresa:</label>
-                        <input name="address"
+                               id="engine">
+                        <label for="year">Godina:</label>
+                        <input name="year"
                                type="text"
                                class="form-control"
                                autocomplete="off"
-                               id="address">
-                        <label for="city">Mesto:</label>
-                        <input name="city"
+                               id="year">
+                        <label for="mileage">Kilometri:</label>
+                        <input name="mileage"
                                type="text"
                                class="form-control"
                                autocomplete="off"
-                               id="city">
-                        <label for="role">Uloga:</label>
-                        <select class="form-control" id="role">
-                            @foreach($userRole as $role)
-                                <option value="{{$role['id']}}"
-                                        @if ($role['name']=='user')
-                                        selected
-                                        @endif
-                                >{{$role['name']}}</option>
-                            @endforeach
-                        </select>
+                               id="mileage">
                         <div class="row saveButton">
                             <div class="col-xs-8 col-md-4">
                                 <button type="submit" class="btn btn-success btn-sm"><i class="far fa-save"></i> Sacuvaj</button>

@@ -151,17 +151,4 @@ class ServiceController extends Controller
         return response()->json(compact('html'));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

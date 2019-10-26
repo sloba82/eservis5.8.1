@@ -78,9 +78,11 @@ class ServicesRepository implements CRUDInterface
 
             $numberplate = str_replace(' ', '', $request['numberplate']);
             $newCar = array(
-                'numberplate' => strtoupper($numberplate)
+                'numberplate' => strtoupper($numberplate),
+                'action'      => 'create_user',
             );
-            return view('/admin/admin_service-createCar', compact('newCar'));
+           // return view('/admin/admin_service-createCar', compact('newCar'));
+            return view('admin.car.create', compact('newCar') );
         }
     }
 

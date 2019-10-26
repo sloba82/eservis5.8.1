@@ -39,7 +39,7 @@ class CarRepository implements CRUDInterface
         return $id;
     }
 
-    public function checkPlateNumber($numberplate)
+    public static function checkPlateNumber($numberplate)
     {
         $numberplate = str_replace(['-', ' ', '*', '  '], '', $numberplate);
         if (Car::where('numberplate', $numberplate)->first()) {

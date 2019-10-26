@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Repository\AppCache\AppCacheRepository;
 use App\Repository\Appointment\AppointmentRepository;
 use Illuminate\Http\Request;
@@ -87,7 +86,6 @@ class AppoitmentController extends Controller
         if (!$Appointment) {
             $Appointment = 'Nothing to show';
         }
-
         return view('admin.appointment.edit', compact('Appointment'));
     }
 
