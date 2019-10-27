@@ -43,7 +43,7 @@ $(function () {
         position: { my : "right top", at: "right bottom" }
     });
 
-    $('#numberplate').on('change keypress focus', function(){
+    $('#numberplate').on('input', function(){
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -63,7 +63,8 @@ $(function () {
                 success: function (response) {
 
                     $( "#numberplate" ).autocomplete({
-                        source: response
+                        source: response,
+                        delay: 300,
                     });
                 }
             });
