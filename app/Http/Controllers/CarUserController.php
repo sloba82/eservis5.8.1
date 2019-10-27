@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Pagination\Paginator;
 
 class CarUserController extends Controller
 {
@@ -25,7 +26,9 @@ class CarUserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+
+
+        $users = User::where('name', 'like', '%' . '' . '%')->latest()->paginate(10);
         $availableCars = CarUserRepository::availableCars();
         return view( 'admin.caruser.index' )->with( ['users' => $users, 'availableCars' => $availableCars] );
     }

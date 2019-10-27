@@ -9,6 +9,27 @@
                 </h4>
             </div>
         </div>
+        <div class="row">
+            <form role="form"
+                  method="post"
+                  class="serachUser"
+                  action="{{ route('caruser.index') }}">
+                {{ csrf_field() }}
+                {{ method_field('GET') }}
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input name="search"
+                               type="text"
+                               class="form-control"
+                               autocomplete="off"
+                               id="search">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success btn-outline">Pretrazi</button>
+                </div>
+            </form>
+        </div>
         @foreach($users as $user)
             <div class="row">
                 <div class="col-md-4" id="{{$user->id}}">
@@ -94,6 +115,7 @@
                 </div>
             </div>
         @endforeach
+        {{ $users->links() }}
     </div>
 
 
