@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repository\Car\CarRepository;
 use App\Repository\UserRole\UserRoleRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class CarController extends Controller
 {
@@ -37,11 +38,16 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        CarRepository::save($request);
+        $carID = CarRepository::save($request);
         if ($request['action'] == 'create_user'){
             $userRole = UserRoleRepository::getAll();
-            return view('admin.user.create', compact('userRole'));
+            $action = [
+                'nextStep' => 'addService',
+                'car_id'   => $carID,
+            ];
+            return view('admin.user.create')->with( ['userRole' => $userRole, 'action' => $action] );
         }
+        return redirect( URL::previous());
     }
 
     /**

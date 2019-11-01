@@ -4,6 +4,7 @@ namespace App\Repository\Car;
 
 use App\Car;
 use App\CarUser;
+use App\Repository\AppCache\AppCacheRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Repository\CRUDInterface;
@@ -30,10 +31,12 @@ class CarRepository implements CRUDInterface
             'model' => $params['model'],
             'engine' => $params['engine'],
             'year' => $params['year'],
-            'mileage' => '',
+            'mileage' => $params['mileage'],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+
+        AppCacheRepository::delateCreateCache('car', self::getAll());
 
         self::$data['id'] = $id;
         return $id;

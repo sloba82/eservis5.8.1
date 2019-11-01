@@ -63,7 +63,6 @@ class ServiceController extends Controller
 
         if ($carID) {
             $role = UserRole::find( $user->role );
-
             if ($role->name == 'serviceman') {
                 return redirect( '/service' );
             } elseif ($role->name == 'admin') {

@@ -61,7 +61,7 @@ class ServicesRepository implements CRUDInterface
         if ($carID) {
             $car = $this->carByID($carID);
             $addCar = array(
-                'carID' => $carID,
+                'id' => $carID,
                 'numberplate' => strtoupper($request['numberplate']),
                 'make' => $car->make,
                 'model' => $car->model,
@@ -77,12 +77,12 @@ class ServicesRepository implements CRUDInterface
             // sto znaci previ se novi auto complete za listanje usera
 
             $numberplate = str_replace(' ', '', $request['numberplate']);
-            $newCar = array(
+            $action = [
                 'numberplate' => strtoupper($numberplate),
-                'action'      => 'create_user',
-            );
-           // return view('/admin/admin_service-createCar', compact('newCar'));
-            return view('admin.car.create', compact('newCar') );
+                'nextStep'      => 'create_user',
+            ];
+
+            return view('admin.car.create', compact('action') );
         }
     }
 

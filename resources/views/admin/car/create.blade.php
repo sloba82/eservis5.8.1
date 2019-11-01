@@ -7,7 +7,7 @@
               action="{{ route('car.store') }}">
             {{ csrf_field() }}
             {{ method_field('POST') }}
-            <input type="hidden" name="action" value="{{ isset($newCar['action']) ? $newCar['action'] : '' }}">
+            <input type="hidden" name="action" value="{{ isset($action['nextStep']) ? $action['nextStep'] : '' }}">
             <div class="col-xs-12 col-md-8 col-lg-8">
                 <div class="panel panel-default height">
                     <div class="panel-heading">
@@ -20,9 +20,9 @@
                                class="form-control text-uppercase"
                                autocomplete="off"
                                id="numberplate"
-                               @if (isset($newCar['numberplate']))
-                               value="{{$newCar['numberplate']}}"
-                               @endif
+                               @if (isset($action['numberplate']))
+                                    value="{{$action['numberplate']}}"
+                                @endif
                         >
                         <label for="make">Marka vozila:</label>
                         <input name="make"

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Repository\Car\CarRepository;
 use App\Repository\User\UserRepository;
 use App\Repository\UserRole\UserRoleRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class UserController extends Controller
 {
@@ -35,7 +37,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
         $userRole = $this->userRole;
         return view('admin.user.create', compact('userRole'));
     }
@@ -48,7 +49,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request = $request->all();
         UserRepository::save($request);
+        if ($request['action'] == 'addService'){
+            $addCar =  CarRepository::getById($request['car_id']);
+            return view('/admin/admin_service-add', compact('addCar'));
+        }
+
+        return redirect( URL::previous());
     }
 
     /**

@@ -7,6 +7,8 @@
               action="{{ route('user.store') }}">
             {{ csrf_field() }}
             {{ method_field('POST') }}
+            <input type="hidden" name="action" value="{{ isset($action['nextStep']) ? $action['nextStep'] : '' }}">
+            <input type="hidden" name="car_id" value="{{ isset($action['car_id']) ? $action['car_id'] : ''}}">
             <div class="col-xs-12 col-md-8 col-lg-8">
                 <div class="panel panel-default height">
                     <div class="panel-heading">
@@ -57,7 +59,7 @@
                                id="city">
                         @if(Auth::user()->role == 1)
                             <label for="role">Uloga:</label>
-                            <select class="form-control" id="role">
+                            <select class="form-control" id="role" name="role">
                                 @foreach($userRole as $role)
                                     <option value="{{$role['id']}}"
                                             @if ($role['name']=='user')
@@ -69,7 +71,8 @@
                         @endif
                         <div class="row saveButton">
                             <div class="col-xs-8 col-md-4">
-                                <button type="submit" class="btn btn-success btn-sm"><i class="far fa-save"></i> Sacuvaj</button>
+                                <button type="submit" class="btn btn-success btn-sm"><i class="far fa-save"></i> Sacuvaj
+                                </button>
                             </div>
                         </div>
                     </div>

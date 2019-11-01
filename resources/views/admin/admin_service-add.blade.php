@@ -3,10 +3,6 @@
 
 @section('content')
 
-
-
-
-
     <div class="container">
         <div class="row">
             <div class="col-sm-12 text-left">
@@ -25,7 +21,7 @@
               method="post"
               role="form">
             {{ csrf_field() }}
-            <input type="hidden" name="carID" value="{{$addCar['carID']}}">
+            <input type="hidden" name="carID" value="{{$addCar['id']}}">
             <input type="hidden" id="service_date" name="service_date" value="">
 
 

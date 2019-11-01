@@ -73,4 +73,21 @@ class AppCacheRepository
     }
 
 
+    /**
+     * @param $key string, Name of the cache entity
+     * @param $value, Value to be stored to cache
+     */
+    public static function delateCreateCache($key, $value){
+        if (self::checkCache($key)) {
+            self::deleteCache($key);
+        }
+        AppCacheRepository::storeCache(
+            [
+                'key' => $key,
+                'value' => $value,
+            ]
+        );
+    }
+
+
 }

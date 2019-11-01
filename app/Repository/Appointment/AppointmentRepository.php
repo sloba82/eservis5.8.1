@@ -31,7 +31,7 @@ class AppointmentRepository implements CRUDInterface
         $Appointment->save();
 
         /**  After save delete previous cache and create new **/
-        self::delateCreateCache();
+        AppCacheRepository::delateCreateCache('allAppointments', self::getAll() );
 
     }
 
@@ -59,17 +59,7 @@ class AppointmentRepository implements CRUDInterface
 
     }
 
-   private static function delateCreateCache(){
-        if (AppCacheRepository::checkCache('allAppointments')) {
-            AppCacheRepository::deleteCache('allAppointments');
-        }
-        AppCacheRepository::storeCache(
-            [
-                'key' => 'allAppointments',
-                'value' => self::getAll(),
-            ]
-        );
-    }
+
 
 
 
