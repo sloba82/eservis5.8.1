@@ -134,7 +134,6 @@ class ServiceController extends Controller
         return $this->serviceItemTable($data);
     }
 
-
     /**
      * returns table data to view
      *
