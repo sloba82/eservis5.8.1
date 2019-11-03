@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Repository\Car\CarRepository;
-use App\Repository\User\UserRepository;
-use App\Repository\UserRole\UserRoleRepository;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\ClientInterface;
+
 
 class TestController extends Controller
 {
@@ -17,15 +20,38 @@ class TestController extends Controller
      */
 
 
+    public $result;
+    public $client;
+
     public function __construct()
     {
 
+       $this->client = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => 'https://vpic.nhtsa.dot.gov',
+            // You can set any number of default request options.
+            'timeout'  => 10.0,
+        ]);
+
+
     }
 
-    public function index()
-    {
-        return 'test';
+    public function testAjax(Request $request) {
+        $value = $request['AppData']['term'];
+        $request = new \GuzzleHttp\Psr7\Request('GET', '/api/vehicles/GetVehicleTypesForMake/'.$value.'?format=json');
+        $promise = $this->client->sendAsync($request)->then(function ($response) {
+            $body = $response->getBody();
+            $arr_body = json_decode($body);
+            $resoult = get_object_vars($arr_body);
+            $this->result = $resoult['Results'][0]->MakeName;
+        });
+        $promise->wait();
+
+        return response()->json( $this->result);
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.

@@ -68,7 +68,6 @@ class ServicesRepository implements CRUDInterface
                 'engine' => $car->engine,
                 'year' => $car->year,
                 'mileage' => $car->mileage,
-
             );
             return view('/admin/admin_service-add', compact('addCar'));
 

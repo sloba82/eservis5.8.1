@@ -70,6 +70,71 @@ $(function () {
             });
     });
 
+
+
+    /*----------------*/
+
+
+    $( "#make" ).autocomplete({
+        autoFocus: true,
+        delay: 50,
+        position: { my : "right top", at: "right bottom" },
+        minLength: 0,
+    });
+
+    $('#make').on('input', function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            cache: false
+        });
+        var term = $( "#make").val();
+        $.ajax({
+            type: 'POST',
+            url: '/test',
+            dataType: 'json',
+            data: {
+                AppData: {
+                    term : term
+                }
+            },
+            success: function (response) {
+
+                $( "#make" ).autocomplete({
+                    source: response,
+                    delay: 500,
+                });
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     var currentdate = new Date();
     var dt = new Date();
     $('#service_date').val(  currentdate.getDate() + "/" + (currentdate.getMonth() + 1)+  "/" + currentdate.getFullYear()+" "+ currentdate.getHours() +":"+ currentdate.getMinutes());

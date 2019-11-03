@@ -36,10 +36,23 @@ class CardReaderController extends Controller
     public function sendCarToService(Request $request)
     {
         $request = $request->all();
-        if (!CarRepository::checkPlateNumber($request['numberplate'])) {
+        $carID = CarRepository::checkPlateNumber($request['numberplate']);
+
+        if (!$carID) {
             $request['mileage'] = '';
-            CarRepository::save($request);
+            $carID = CarRepository::save($request);
         }
+
+        $addCar = array(
+            'id' => $carID,
+            'numberplate' => strtoupper($request['numberplate']),
+            'make' => $request['make'],
+            'model' => $request['model'],
+            'engine' => $request['engine'],
+            'year' => $request['year'],
+            'mileage' => '',
+        );
+        return view('/admin/admin_service-add', compact('addCar'));
     }
 
 

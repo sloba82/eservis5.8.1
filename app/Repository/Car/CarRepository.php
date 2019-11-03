@@ -46,7 +46,7 @@ class CarRepository implements CRUDInterface
     {
         $numberplate = str_replace(['-', ' ', '*', '  '], '', $numberplate);
         if (Car::where('numberplate', $numberplate)->first()) {
-            return 1;
+            return Car::where('numberplate', $numberplate)->first()->id;
         } else {
             return 0;
         }
