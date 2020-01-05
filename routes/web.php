@@ -53,6 +53,7 @@ Route::resource('/test', 'TestController');
 
 Route::post('/test', 'TestController@testAjax');
 
+Route::get('/customer', 'CustomerController@index')->name('customer');
 
 
 
