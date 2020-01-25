@@ -16,6 +16,9 @@ class AuthController extends Controller
      */
     public function __construct()
     {
+        // apply this jwt middleware to every external controller in vue app.
+        //  ['login', 'signup'] this are accepted methodes.
+        // $this->middleware('jwt', ['only' => ['login', 'signup']]); 'only' option
         $this->middleware('jwt', ['except' => ['login', 'signup']]);
     }
 

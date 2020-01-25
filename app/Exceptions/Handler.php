@@ -49,7 +49,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-
         if ($exception instanceof TokenInvalidException) {
             return response()->json(['error' => 'Token is invalid'], 400);
         }
