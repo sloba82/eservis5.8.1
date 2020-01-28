@@ -9,15 +9,15 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -72,9 +72,41 @@
             </div>
         </nav>
 
+            <v-app>
+                    <v-card
+                    color="grey lighten-4"
+                    flat
+                    height="200px"
+                    tile>
+                        <v-toolbar dense>
+                            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+                            <v-toolbar-title>Title</v-toolbar-title>
+
+                            <v-spacer></v-spacer>
+
+                            <v-btn icon>
+                                <v-icon>mdi-magnify</v-icon>
+                            </v-btn>
+
+                            <v-btn icon>
+                                <v-icon>mdi-heart</v-icon>
+                            </v-btn>
+
+                            <v-btn icon>
+                                <v-icon>mdi-dots-vertical</v-icon>
+                            </v-btn>
+                        </v-toolbar>
+                    </v-card>
+            </v-app>
+
+
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+
+        <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

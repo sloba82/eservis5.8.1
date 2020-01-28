@@ -10,6 +10,7 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+
 // This imports all the layout components such as <b-container>, <b-row>, <b-col>:
 import { LayoutPlugin } from 'bootstrap-vue'
 Vue.use(LayoutPlugin)
@@ -31,10 +32,14 @@ import { DropdownPlugin, TablePlugin } from 'bootstrap-vue'
 Vue.use(DropdownPlugin)
 Vue.use(TablePlugin)
 
-
 require('./bootstrap');
 
+
 window.Vue = require('vue');
+
+import Vuetify from 'vuetify'
+Vue.use(Vuetify)
+
 
 /**
  * The following block of code may be used to automatically register your
