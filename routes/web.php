@@ -48,11 +48,8 @@ Route::middleware(['auth', 'roles:admin,serviceman' ])->group(function () {
 
 Route::get('/card-reader/{data}', 'CardReaderController@getCardReader');
 Route::post('/sendCarToService', 'CardReaderController@sendCarToService');
-
 Route::resource('/test', 'TestController');
-
 Route::post('/test', 'TestController@testAjax');
-
 Route::get('/customer', 'CustomerController@index')->name('customer');
 
 
