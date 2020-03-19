@@ -1,29 +1,19 @@
 <template>
-    <v-card>
-        <v-toolbar dense>
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
-            <v-toolbar-title>Title</v-toolbar-title>
-
-            <v-spacer></v-spacer>
-
-            <v-btn icon>
-                <v-icon>mdi-magnify</v-icon>
-            </v-btn>
-
-            <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-            </v-btn>
-
-            <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-        </v-toolbar>
-    </v-card>
+    <div>
+        <toolbar></toolbar>
+        <app-footer></app-footer>
+    </div>
 </template>
 
 <script>
+    import Toolbar from './layout/Toolbar';
+    import AppFooter from './layout/AppFooter';
+
     export default {
+        components: {
+            toolbar: Toolbar,
+            AppFooter: AppFooter,
+        },
         mounted() {
             console.log('Component mounted.')
         }

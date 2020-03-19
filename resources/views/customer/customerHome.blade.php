@@ -1,5 +1,7 @@
 @extends('customer.app')
 
 @section('content')
-    <app-customer-home></app-customer-home>
+    <v-app>
+        <app-customer-home></app-customer-home>
+    </v-app>
 @endsection
