@@ -51,7 +51,7 @@ Route::post('/sendCarToService', 'CardReaderController@sendCarToService');
 Route::resource('/test', 'TestController');
 Route::post('/test', 'TestController@testAjax');
 Route::get('/customer', 'CustomerController@index')->name('customerHome');
-
+Route::view('/customer/{any}' , 'customer/customerHome');
 
 
 

@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+
+
 const opts = {};
 export default new Vuetify(opts);
 Vue.use(Vuetify);
@@ -16,8 +18,6 @@ Vue.use(Vuetify);
 require('./bootstrap');
 
 window.Vue = require('vue');
-
-
 
 /**
  * The following block of code may be used to automatically register your
@@ -38,10 +38,11 @@ Vue.component('AppCustomerHome', require('./components/AppCustomerHome.vue').def
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-
+import router from './Router/router.js'
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
+    router
 });
 
 
