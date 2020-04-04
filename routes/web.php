@@ -19,7 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
 Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::post('/appointmentsave', 'AppoitmentController@store');
     Route::post('/appoitment/ajaxConfirm', 'AppoitmentController@ajaxConfirm');

@@ -7,7 +7,7 @@
             <div>
                 <v-btn text>Link one</v-btn>
                 <v-btn text>Link two</v-btn>
-                <v-btn text @click="">Dialog login</v-btn>
+                <v-btn text @click="dialogLogin">Dialog login</v-btn>
                 <router-link to="/login">
                     <v-btn text>Login</v-btn>
                 </router-link>
@@ -17,8 +17,17 @@
 </template>
 
 <script>
+    import EventBus from './../../Helpers/eventBus'
 
     export default {
+        methods: {
+            /**
+             * Create event for login dialog.
+             */
+            dialogLogin() {
+                EventBus.$emit('dialogLogin', true);
+            }
 
+        }
     }
 </script>

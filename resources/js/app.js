@@ -39,10 +39,13 @@ Vue.component('AppCustomerHome', require('./components/AppCustomerHome.vue').def
  */
 
 import router from './Router/router.js'
+/*import eventBus from "./Helpers/eventBus";*/
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
-    router
+    router,
+   /* eventBus,*/
+
 });
 
 

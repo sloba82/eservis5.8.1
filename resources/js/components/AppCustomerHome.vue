@@ -10,17 +10,17 @@
 </template>
 
 <script>
-    import Toolbar from './layout/Toolbar';
-    import AppFooter from './layout/AppFooter';
+    import Toolbar from './Layout/Toolbar';
+    import AppFooter from './Layout/AppFooter';
     import Login from "./Login/Login";
-    import DialogLogin from "./Login/DialogLogin";
+    import Dialog from "./Dialog/Dialog";
 
     export default {
         components: {
             toolbar: Toolbar,
             AppFooter: AppFooter,
             login: Login,
-            dialogLogin: DialogLogin,
+            dialogLogin: Dialog,
         },
         mounted() {
             console.log('Component mounted.')
