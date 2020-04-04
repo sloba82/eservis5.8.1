@@ -8,9 +8,6 @@
                 <v-btn text>Link one</v-btn>
                 <v-btn text>Link two</v-btn>
                 <v-btn text @click="dialogLogin">Dialog login</v-btn>
-                <router-link to="/login">
-                    <v-btn text>Login</v-btn>
-                </router-link>
             </div>
         </v-toolbar>
     </v-card>

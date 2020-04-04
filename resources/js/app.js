@@ -39,12 +39,14 @@ Vue.component('AppCustomerHome', require('./components/AppCustomerHome.vue').def
  */
 
 import router from './Router/router.js'
-/*import eventBus from "./Helpers/eventBus";*/
+import Vuelidate from "./Helpers/vuelidate";
+
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
     router,
-   /* eventBus,*/
+    Vuelidate,
+
 
 });
 
