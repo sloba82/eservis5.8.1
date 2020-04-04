@@ -15,41 +15,23 @@
                 <v-card-text>
                     <form>
                         <v-text-field
-                            v-model="name"
+                            v-model="form.name"
                             :error-messages="nameErrors"
-                            :counter="10"
+                            :counter="15"
                             label="Name"
                             required
                             @input="$v.name.$touch()"
                             @blur="$v.name.$touch()"
                         ></v-text-field>
                         <v-text-field
-                            v-model="email"
+                            v-model="form.email"
                             :error-messages="emailErrors"
                             label="E-mail"
                             required
                             @input="$v.email.$touch()"
                             @blur="$v.email.$touch()"
                         ></v-text-field>
-                        <v-select
-                            v-model="select"
-                            :items="items"
-                            :error-messages="selectErrors"
-                            label="Item"
-                            required
-                            @change="$v.select.$touch()"
-                            @blur="$v.select.$touch()"
-                        ></v-select>
-                        <v-checkbox
-                            v-model="checkbox"
-                            :error-messages="checkboxErrors"
-                            label="Do you agree?"
-                            required
-                            @change="$v.checkbox.$touch()"
-                            @blur="$v.checkbox.$touch()"
-                        ></v-checkbox>
-
-                        <v-btn class="mr-4" @click="submit">submit</v-btn>
+                        <v-btn class="mr-4" @click="login">submit</v-btn>
                         <v-btn @click="clear">clear</v-btn>
                     </form>
                 </v-card-text>
@@ -61,9 +43,9 @@
                     <v-btn
                         color="primary"
                         text
-                        @click="dialog = false"
+                        @click="closeDialog"
                     >
-                        Clouse
+                        Close
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -78,25 +60,19 @@
     export default {
 
         mixins: [validationMixin],
-        
+
         data() {
             return {
                 dialog: false,
-                name: '',
-                email: '',
-                select: null,
-                items: [
-                    'Item 1',
-                    'Item 2',
-                    'Item 3',
-                    'Item 4',
-                ],
-                checkbox: false,
+                form: {
+                    name: '',
+                    email: '',
+                },
             }
         },
 
         validations: {
-            name: { required, maxLength: maxLength(10) },
+            name: { required, maxLength: maxLength(15) },
             email: { required, email },
             select: { required },
             checkbox: {
@@ -107,18 +83,7 @@
         },
 
         computed: {
-            checkboxErrors () {
-                const errors = []
-                if (!this.$v.checkbox.$dirty) return errors
-                !this.$v.checkbox.checked && errors.push('You must agree to continue!')
-                return errors
-            },
-            selectErrors () {
-                const errors = []
-                if (!this.$v.select.$dirty) return errors
-                !this.$v.select.required && errors.push('Item is required')
-                return errors
-            },
+
             nameErrors () {
                 const errors = []
                 if (!this.$v.name.$dirty) return errors
@@ -136,16 +101,22 @@
         },
 
         methods: {
-            submit () {
-                this.$v.$touch()
+            login() {
+               axios.post('/api/auth/login',this.form)
+                .then(res => console.log(res.data))
+                .error(error => console.log(error.response.data));
+            },
+
+            closeDialog() {
+                this.clear();
+                this.dialog = false;
             },
             clear () {
                 this.$v.$reset()
-                this.name = ''
-                this.email = ''
-                this.select = null
-                this.checkbox = false
+                this.form.name = ''
+                this.form.email = ''
             },
+
         },
 
         /**
