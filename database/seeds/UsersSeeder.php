@@ -39,7 +39,7 @@ class UsersSeeder extends Seeder
             'updated_at' => '2018-02-18 01:20:44',
         ]);
 
-        for ($x = 0; $x <= 100; $x++) {
+        for ($x = 0; $x <= 10; $x++) {
             DB::table('users')->insert([
                 'name' => 'test'. $x,
                 'email' => $x.'test@gmail.com',

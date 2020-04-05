@@ -15,21 +15,21 @@
                 <v-card-text>
                     <form>
                         <v-text-field
-                            v-model="form.name"
-                            :error-messages="nameErrors"
-                            :counter="15"
-                            label="Name"
-                            required
-                            @input="$v.name.$touch()"
-                            @blur="$v.name.$touch()"
-                        ></v-text-field>
-                        <v-text-field
-                            v-model="form.email"
+                            v-model="email"
                             :error-messages="emailErrors"
                             label="E-mail"
                             required
                             @input="$v.email.$touch()"
                             @blur="$v.email.$touch()"
+                        ></v-text-field>
+                        <v-text-field
+                            v-model="password"
+                            :error-messages="nameErrors"
+                            :type="'password'"
+                            label="Password"
+                            required
+                            @input="$v.password.$touch()"
+                            @blur="$v.password.$touch()"
                         ></v-text-field>
                         <v-btn class="mr-4" @click="login">submit</v-btn>
                         <v-btn @click="clear">clear</v-btn>
@@ -55,7 +55,7 @@
 <script>
     import EventBus from './../../Helpers/eventBus'
     import { validationMixin } from 'vuelidate'
-    import { required, maxLength, email } from 'vuelidate/lib/validators'
+    import { required, email } from 'vuelidate/lib/validators'
 
     export default {
 
@@ -64,31 +64,23 @@
         data() {
             return {
                 dialog: false,
-                form: {
-                    name: '',
-                    email: '',
-                },
+                password:'',
+                email:'',
+                form: []
             }
         },
 
         validations: {
-            name: { required, maxLength: maxLength(15) },
-            email: { required, email },
-            select: { required },
-            checkbox: {
-                checked (val) {
-                    return val
-                },
-            },
+            password: { required, },
+            email: { required, },
         },
 
         computed: {
 
             nameErrors () {
                 const errors = []
-                if (!this.$v.name.$dirty) return errors
-                !this.$v.name.maxLength && errors.push('Name must be at most 10 characters long')
-                !this.$v.name.required && errors.push('Name is required.')
+                if (!this.$v.password.$dirty) return errors
+                !this.$v.password.required && errors.push('Name is required.')
                 return errors
             },
             emailErrors () {
@@ -102,9 +94,11 @@
 
         methods: {
             login() {
-               axios.post('/api/auth/login',this.form)
-                .then(res => console.log(res.data))
-                .error(error => console.log(error.response.data));
+                this.form.password = this.password;
+                this.form.email = this.email;
+
+               axios.post('/api/auth/login', this.form)
+                /*.error(error => console.log(error.response.data));*/
             },
 
             closeDialog() {
