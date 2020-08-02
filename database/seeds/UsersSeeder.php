@@ -30,7 +30,7 @@ class UsersSeeder extends Seeder
             'name' => 'test',
             'email' => 'test@gmail.com',
             'last_name' => 'adminLastName',
-            'password' => bcrypt('test'),
+            'password' => bcrypt('Sloba82Dragana84'),
             'address' => 'Petra Petrovica 6',
             'city' => 'Novi Sad',
             'phone' => '0642465848',

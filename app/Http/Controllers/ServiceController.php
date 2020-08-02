@@ -55,7 +55,7 @@ class ServiceController extends Controller
     {
         $user = $request->user();
         $request = $request->all();
-        $request{'user_id'} = $user->id;
+        $request['user_id'] = $user->id;
         $request['service_man'] = $user->name . ' ' . $user->last_name;
         $carID = $request['carID'];
         $request['service_date'] = $helperRepository->timeFormat( $request['service_date'] );

@@ -10,6 +10,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
+import axios from 'axios'
 
 const opts = {};
 export default new Vuetify(opts);

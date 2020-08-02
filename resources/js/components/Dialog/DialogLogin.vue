@@ -56,6 +56,7 @@
     import EventBus from './../../Helpers/eventBus'
     import { validationMixin } from 'vuelidate'
     import { required, email } from 'vuelidate/lib/validators'
+    import axios from 'axios'
 
     export default {
 
@@ -92,13 +93,48 @@
             },
         },
 
+
+
         methods: {
             login() {
                 this.form.password = this.password;
                 this.form.email = this.email;
 
-               axios.post('/api/auth/login', this.form)
-                /*.error(error => console.log(error.response.data));*/
+
+                console.log(this.form);
+
+
+                //var reqData = "username=ganesh&password=123456&grant_type=password";
+   /*             axios({
+                    method: 'post',
+                    url: 'http://127.0.0.1:8000/api/auth/login',
+                    withCredentials: true,
+                    crossdomain: true,
+                    data: this.form,
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "Cache-Control": "no-cache",
+                        "Accept": "application/json"
+                    }
+                }).then(function (response) {
+                    console.log("Heade With Authentication :" + response);
+                })
+                    .catch(function (error) {
+                        console.log("Post Error : " +error);
+                    });*/
+
+
+
+
+              axios.post('/api/auth/login', this.form)
+                .then(function (response) {
+                    console.log('response');
+                    console.log(response);
+                  })
+                  .catch(function (error) {
+                      console.log('error.response');
+                      console.log(error.response);
+                  });
             },
 
             closeDialog() {

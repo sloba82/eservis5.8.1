@@ -15,18 +15,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Auth::routes();
+
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::middleware(['auth', 'roles:admin'])->group(function () {
+Route::middleware(['auth:web', 'roles:admin'])->group(function () {
     Route::post('/appointmentsave', 'AppoitmentController@store');
     Route::post('/appoitment/ajaxConfirm', 'AppoitmentController@ajaxConfirm');
     Route::resource('/appointment', 'AppoitmentController');
     Route::get('/appointment-table/{rezNum}', 'AppoitmentController@resoultPerPage');
 });
 
-Route::middleware(['auth', 'roles:admin,serviceman' ])->group(function () {
+Route::middleware(['auth:web', 'roles:admin,serviceman' ])->group(function () {
     Route::get('/service', function () {
         return view('/admin/admin_service');
     });
