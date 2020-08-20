@@ -1864,8 +1864,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     login: function login() {
-      this.form.password = this.password;
-      this.form.email = this.email;
       console.log(this.form); //var reqData = "username=ganesh&password=123456&grant_type=password";
 
       /*             axios({
@@ -1886,7 +1884,10 @@ __webpack_require__.r(__webpack_exports__);
                            console.log("Post Error : " +error);
                        });*/
 
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/api/auth/login', this.form).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/api/auth/login', {
+        password: this.password,
+        email: this.email
+      }).then(function (response) {
         console.log('response');
         console.log(response);
       })["catch"](function (error) {

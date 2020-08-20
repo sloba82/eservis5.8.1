@@ -97,8 +97,7 @@
 
         methods: {
             login() {
-                this.form.password = this.password;
-                this.form.email = this.email;
+
 
 
                 console.log(this.form);
@@ -126,7 +125,10 @@
 
 
 
-              axios.post('/api/auth/login', this.form)
+              axios.post('/api/auth/login', {
+                password:this.password,
+                email:this.email
+              })
                 .then(function (response) {
                     console.log('response');
                     console.log(response);
